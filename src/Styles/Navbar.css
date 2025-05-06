@@ -1,0 +1,113 @@
+/* Navbar main style */
+.navbar {
+    width: 100%;
+    background-color: black;
+    border-bottom: 2px solid #e5e5e5;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    position: fixed;
+    color: white;
+    z-index: 1000;
+  }
+  
+  /* Container inside navbar */
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Logo */
+  .logo img {
+    height: auto;
+    width: 150px;
+  }
+  
+  /* Desktop links */
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    color: #007bff;
+  }
+  
+  /* Active Link */
+  .active-link {
+    color: #2563EB;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 3px;
+  }
+  
+  /* Hamburger for mobile */
+  .hamburger {
+    display: none;
+  }
+  
+  /* Mobile menu wrapper */
+  .mobile-menu-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    background-color: white;
+    transition: max-height 0.4s ease;
+  }
+  
+  /* Open state */
+  .mobile-menu-wrapper.open {
+    max-height: 500px; /* Enough to show all links */
+  }
+  
+  /* Mobile menu items */
+  .mobile-menu-wrapper ul {
+    list-style: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .mobile-menu-wrapper li {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mobile-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.75rem 0;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .mobile-link:hover {
+    color: #007bff;
+    background-color: #f9f9f9;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    .hamburger {
+      display: block;
+      background-color: #BF2EF0;
+      border-radius: 50%;
+      padding: 3px;
+    }
+  }
+  
