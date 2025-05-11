@@ -4,15 +4,23 @@ import './App.css'
 import Homepage from './Pages/Homepage'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
+import LoginPage from './Pages/LoginPage'
+import RegisterPage from './Pages/RegisterPage'
+import MovieDetailsPage from './Pages/MovieDetailsPage'
+import ScrollToTop from './Components/ScrollToTop'
+
 
 const App = () => {
   return (
     <div>
-      <div className="min-h-screen flex flex-col"></div>
+      <ScrollToTop/>
       <Navbar/>
-      <div className="flex-grow">
+      <div>
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/movie/:id" element={<MovieDetailsPage />} />
       </Routes>
       </div>
       <Footer/>

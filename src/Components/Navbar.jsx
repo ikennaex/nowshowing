@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md shadow`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 backdrop-blur-lg shadow`}>
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 relative">
 
         {/* Logo */}
@@ -23,15 +23,15 @@ const Navbar = () => {
 
         {/* Centered Nav Links */}
         <ul className="absolute left-1/2 transform -translate-x-1/2 flex space-x-12 hidden md:flex">
-          <li><NavLink exact="true" to="/" className={({ isActive }) => `${isActive ? "active-link" : ""} transition transform hover:-translate-y-1 duration-200`}>LINK</NavLink></li>
-          <li><NavLink to="/about" className={({ isActive }) => `${isActive ? "active-link" : ""} transition transform hover:-translate-y-1 duration-200`}>LINK</NavLink></li>
-          <li><NavLink to="/services" className={({ isActive }) => `${isActive ? "active-link" : ""} transition transform hover:-translate-y-1 duration-200`}>LINK</NavLink></li>
-          <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} transition transform hover:-translate-y-1 duration-200`}>LINK</NavLink></li>
+          <li><NavLink exact="true" to="/buy-tickets" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>BUY TICKETS</NavLink></li>
+          <li><NavLink to="/trending" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>TRENDING</NavLink></li>
+          <li><NavLink to="/blog" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>BLOG</NavLink></li>
+          <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>CONTACT</NavLink></li>
         </ul>
 
         {/* Right Side Links */}
         <div className="flex items-center space-x-4 hidden md:flex">
-          <NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : ""}>Login/Register</NavLink>
+          <NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : "navlink-a"}>Login/Register</NavLink>
         </div>
 
         {/* Hamburger (for mobile) */}
@@ -43,11 +43,11 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div className={`mobile-menu-wrapper ${open ? 'open' : ''} md:hidden`}>
         <ul className="flex flex-col items-center bg-white/90 backdrop-blur-md py-4 space-y-4">
-          <li><NavLink exact="true" to="/" onClick={handleLinkClick} className="mobile-link">LINK</NavLink></li>
-          <li><NavLink to="/" onClick={handleLinkClick} className="mobile-link">LINK</NavLink></li>
-          <li><NavLink to="/" onClick={handleLinkClick} className="mobile-link">LINK</NavLink></li>
-          <li><NavLink to="/" onClick={handleLinkClick} className="mobile-link">LINK</NavLink></li>
-          <li><NavLink to="/" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li>
+          <li><NavLink exact="true" to="/buy-tickets" onClick={handleLinkClick} className="mobile-link">BUY TICKETS</NavLink></li>
+          <li><NavLink to="/trending" onClick={handleLinkClick} className="mobile-link">TRENDING</NavLink></li>
+          <li><NavLink to="/blog" onClick={handleLinkClick} className="mobile-link">BLOG</NavLink></li>
+          <li><NavLink to="/contact" onClick={handleLinkClick} className="mobile-link">CONTACT</NavLink></li>
+          <li><NavLink to="/login" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li>
         </ul>
       </div>
     </nav>
