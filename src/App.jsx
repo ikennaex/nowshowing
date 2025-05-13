@@ -8,6 +8,8 @@ import LoginPage from './Pages/LoginPage'
 import RegisterPage from './Pages/RegisterPage'
 import MovieDetailsPage from './Pages/MovieDetailsPage'
 import ScrollToTop from './Components/ScrollToTop'
+import BlogPage from './Pages/BlogPage'
+import BlogDetails from './Pages/BlogDetails'
 
 
 const App = () => {
@@ -15,12 +17,14 @@ const App = () => {
     <div>
       <ScrollToTop/>
       <Navbar/>
-      <div>
+      <div className='mt-10'>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/movie/:id" element={<MovieDetailsPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogDetails />} />
       </Routes>
       </div>
       <Footer/>
