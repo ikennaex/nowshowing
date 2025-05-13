@@ -32,11 +32,11 @@ const MovieDetailsPage = () => {
 
   return (
     <div className="p-6 text-white bg-black min-h-screen">
-      <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-6">
+      <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-6 mt-20">
         <img src={movie.image} alt={movie.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
         
         <div className="flex-1 space-y-4">
-          <h1 className="text-3xl font-bold text-customBlue">{movie.title}</h1>
+          <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
           <Link to={`/genres/${movie.genre.toLowerCase()}`} className="text-customPurple underline">
             {movie.genre}
           </Link>

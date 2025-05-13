@@ -9,7 +9,6 @@ export default {
       colors: {
         customBlue: "#2563EB",
         customPurple: "#BF2EF0"
-        
       }
     },
   },

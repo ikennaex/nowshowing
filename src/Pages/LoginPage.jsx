@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4">
+    <div className="min-h-screen flex items-center justify-center bg-black px-4 pt-20">
       <div className="w-full max-w-4xl bg-[#111111] rounded-xl shadow-lg p-8 md:p-14 flex flex-col lg:flex-row gap-10 items-center">
         {/* Branding or Side Text */}
         <div className="text-center lg:text-left lg:max-w-md flex-1">
