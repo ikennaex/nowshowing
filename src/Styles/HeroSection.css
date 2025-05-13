@@ -197,50 +197,8 @@ body {
     border-radius: 10px;
   }
   
-  /* Responsive layout */
-  @media screen and (max-width: 768px) {
-    .main {
-      flex-direction: column;
-      align-items: center;
-      padding: 1.5rem;
-    }
-    .hero-overlay {
-        height: 100px;
-    }
-    .movie-text {
-      max-width: 100%;
-      width: 100%;
-      margin-bottom: 2rem;
-    }
-  
-    .mySwiper {
-      width: 180px;
-      height: 280px;
-    }
-  
-    .movie-overlay h1 {
-      font-size: 2rem;
-    }
-  
-    .movie-overlay p {
-      font-size: 0.95rem;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    .mySwiper {
-      width: 180px;
-      height: 280px;
-    }
-  
-    .movie-overlay h1 {
-      font-size: 1.5rem;
-    }
-  
-    .movie-overlay p {
-      font-size: 0.9rem;
-    }
-  }
+
+
   
   .hero-section {
     position: relative;
