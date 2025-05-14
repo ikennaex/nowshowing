@@ -10,7 +10,7 @@ const HeroSection = () => {
   const currentMovie = movies[activeIndex];
 
   return (
-    <div className="hero-section relative w-full h-[120vh] overflow-hidden mt-2">
+    <div className="hero-section relative w-full h-[120vh] overflow-hidden mt-0">
 
       <div
         className="hero-bg absolute inset-0 bg-cover bg-center bg-no-repeat filter  brightness-10 z-0"

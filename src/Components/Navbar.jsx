@@ -23,15 +23,15 @@ const Navbar = () => {
 
         {/* Centered Nav Links */}
         <ul className="absolute left-1/2 transform -translate-x-1/2 flex space-x-12 hidden md:flex">
-          <li><NavLink exact="true" to="/buy-tickets" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>BUY TICKETS</NavLink></li>
-          <li><NavLink to="/trending" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>TRENDING</NavLink></li>
-          <li><NavLink to="/blog" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>BLOG</NavLink></li>
-          <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200`}>CONTACT</NavLink></li>
+          <li><NavLink exact="true" to="/buy-tickets" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BUY TICKETS</NavLink></li>
+          <li><NavLink to="/trending" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>TRENDING</NavLink></li>
+          <li><NavLink to="/blog" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BLOG</NavLink></li>
+          <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>CONTACT</NavLink></li>
         </ul>
 
         {/* Right Side Links */}
         <div className="flex items-center space-x-4 hidden md:flex">
-          <NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : "navlink-a"}>Login/Register</NavLink>
+          <NavLink to="/login" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Login/Register</NavLink>
         </div>
 
         {/* Hamburger (for mobile) */}
