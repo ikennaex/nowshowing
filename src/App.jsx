@@ -10,6 +10,7 @@ import MovieDetailsPage from './Pages/MovieDetailsPage'
 import ScrollToTop from './Components/ScrollToTop'
 import BlogPage from './Pages/BlogPage'
 import BlogDetails from './Pages/BlogDetails'
+import AdminPage from './Pages/AdminPage'
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/movie/:id" element={<MovieDetailsPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       </div>
       <Footer/>
