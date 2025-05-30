@@ -1,18 +1,42 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { baseUrl } from '../baseUrl';
+import Loader from './Loader';
 
-const CurrentlyPlaying = ({ movies }) => {
+const CurrentlyPlaying = () => {
+  const [fetchedCinemaMovies, setFetchedCinemaMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchCinemaMovies = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}cinema`);
+        setFetchedCinemaMovies(response.data);
+        console.log(response.data);
+      } catch (err) {
+        setError('Failed to fetch movies');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCinemaMovies();
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="px-4 py-8 bg-black text-white">
       <h3 className="text-2xl md:text-3xl font-semibold text-center mb-6">
-        {movies.length > 0 ? 'Currently Playing' : 'No movies found'}
+        {fetchedCinemaMovies.length > 0 ? 'Currently Playing' : error || 'No movies found'}
       </h3>
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {movies.map((movie, index) => (
-            <Link to={`/movie/${movie.id}`} key={index}>
+        {fetchedCinemaMovies.map((movie) => (
+          <Link to={`/movie/${movie._id}`} key={movie._id}>
             <div className="cursor-pointer transform hover:scale-105 transition duration-300">
               <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
                 <img

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import movies from '../data/movies';
+import { baseUrl } from '../baseUrl';
+import axios from 'axios';
 
 const MovieDetailsPage = () => {
   const { id } = useParams(); 
@@ -23,6 +25,20 @@ const MovieDetailsPage = () => {
       setError("Movie not found.");
     }
   }, [id]);
+  //to get the cinema locations
+  useEffect(() => {
+    const location = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}cinemalocations`); //should get the id from the id of the movie
+        setLocation(response.data);
+        console.log(response.data)
+      } catch (err) {
+        setError("Failed to fetch products");
+      }
+    };
+
+    location();
+  }, []);
 
   if (error) {
     return <div className="text-white text-center p-6">{error}</div>;
