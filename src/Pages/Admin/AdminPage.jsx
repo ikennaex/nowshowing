@@ -1,9 +1,9 @@
 import React from 'react'
-import SearchBar from '../Components/SearchBar'
+import SearchBar from '../../Components/SearchBar'
 import { useState, useMemo } from 'react'
-import movies from '../data/movies';
-import AdminMovies from '../Components/AdminMovies';
-import AdminCreateMovies from '../Components/AdminCreateMovies';
+import movies from '../../data/movies';
+import AdminMovies from '../../Components/Admin/AdminMovies';
+import AdminCreateMovies from '../../Components/Admin/AdminCreateMovies';
 
 
 const AdminPage = () => {

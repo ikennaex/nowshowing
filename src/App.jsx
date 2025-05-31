@@ -10,7 +10,7 @@ import MovieDetailsPage from './Pages/MovieDetailsPage'
 import ScrollToTop from './Components/ScrollToTop'
 import BlogPage from './Pages/BlogPage'
 import BlogDetails from './Pages/BlogDetails'
-import AdminPage from './Pages/AdminPage'
+import AdminPage from './Pages/Admin/AdminPage'
 
 
 const App = () => {

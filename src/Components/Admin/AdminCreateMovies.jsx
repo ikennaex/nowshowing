@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { baseUrl } from '../baseUrl';
+import { baseUrl } from '../../baseUrl';
 
 const AdminCreateMovie = () => {
   const [locations, setLocations] = useState([]);
@@ -228,10 +228,10 @@ const AdminCreateMovie = () => {
               {filteredLocations.map((loc) => (
                 <li
                   key={loc.id}
-                  onClick={() => handleLocationSelect(loc.name)}
+                  onClick={() => handleLocationSelect(loc.name + ", " + loc.city)}
                   className="cursor-pointer px-2 py-1 hover:bg-gray-600"
                 >
-                  {loc.name}
+                  {loc.name + ", " + loc.city}
                 </li>
               ))}
             </ul>
