@@ -11,6 +11,9 @@ import ScrollToTop from './Components/ScrollToTop'
 import BlogPage from './Pages/BlogPage'
 import BlogDetails from './Pages/BlogDetails'
 import AdminPage from './Pages/Admin/AdminPage'
+import CreateCinemaMovie from './Pages/Admin/CreateCinemaMovie'
+import CreateStreamingMovie from './Pages/Admin/CreateStreamingMovie'
+import CreateYoutubeMovie from './Pages/Admin/CreateYoutubeMovie'
 
 
 const App = () => {
@@ -27,6 +30,9 @@ const App = () => {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/createcinemamovie" element={<CreateCinemaMovie />} />
+        <Route path="/admin/createstreamingmovie" element={<CreateStreamingMovie />} />
+        <Route path="/admin/createyoutubemovie" element={<CreateYoutubeMovie />} />
       </Routes>
       </div>
       <Footer/>

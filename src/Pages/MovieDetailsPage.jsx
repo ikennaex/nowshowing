@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import movies from '../data/movies';
 import { baseUrl } from '../baseUrl';
 import axios from 'axios';
 
 const MovieDetailsPage = () => {
   const { id } = useParams(); 
-  console.log('Movie ID from URL:', id);
   const [movie, setMovie] = useState(null);
   const [location, setLocation] = useState('');
   const [showtime, setShowtime] = useState('');
@@ -14,31 +12,33 @@ const MovieDetailsPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const found = movies.find((m) => String(m.id) === String(id));
-    console.log('Movie ID changed:', id,found);
-    if (found) {
-      setMovie(found);
-      setLocation(found.location);
-      setShowtime(found.showtimes[0]);
-      setSeat(found.seats.find(s => s.available)?.seat || '');
-    } else {
-      setError("Movie not found.");
-    }
-  }, [id]);
-  //to get the cinema locations
-  useEffect(() => {
-    const location = async () => {
+    const fetchMovie = async () => {
       try {
-        const response = await axios.get(`${baseUrl}cinemalocations`); //should get the id from the id of the movie
-        setLocation(response.data);
-        console.log(response.data)
+        const response = await axios.get(`${baseUrl}cinema/${id}`);
+        const movieData = response.data;
+        setMovie(movieData);
+
+        // Set default dropdown values
+        if (movieData.location?.length) {
+          setLocation(movieData.location[0]);
+        }
+        if (movieData.showtimes?.length) {
+          setShowtime(movieData.showtimes[0]);
+        }
+        const firstAvailableSeat = movieData.seats?.find(s => s.available);
+        if (firstAvailableSeat) {
+          setSeat(firstAvailableSeat.seat);
+        }
       } catch (err) {
-        setError("Failed to fetch products");
+        setError("Failed to fetch movie details.");
       }
     };
+    fetchMovie();
 
-    location();
-  }, []);
+  }, [id]);
+
+
+
 
   if (error) {
     return <div className="text-white text-center p-6">{error}</div>;
@@ -53,11 +53,38 @@ const MovieDetailsPage = () => {
         
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-          <Link to={`/genres/${movie.genre.toLowerCase()}`} className="text-customPurple underline">
+          <Link to={`/genres/`} className="text-customPurple underline">
             {movie.genre}
           </Link>
-          <p className="text-gray-300">{movie.body}</p>
+          <p className="text-gray-300">{movie.synopsis}</p>
 
+          {/* Director */}
+          <p className="text-gray-300">
+            <span className="font-semibold text-white">Director:</span> {movie.director}
+          </p>
+
+          {/* Cast */}
+          <div>
+            <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
+            <ul className="list-disc list-inside text-gray-300">
+              {movie.cast.map((actor, idx) => (
+                <li key={idx}>{actor}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Language */}
+          <p className="text-gray-300">
+            <span className="font-semibold text-white">Language:</span> {movie.language}
+          </p>
+
+          {/* Duration (looks like a URL in your data) */}
+          <p className="text-gray-300">
+            <span className="font-semibold text-white">More Info:</span>{' '}
+            <a href={movie.duration} target="_blank" rel="noopener noreferrer" className="text-customBlue underline">
+              {movie.duration}
+            </a>
+          </p>
           <div className="space-y-3">
             {/* Location Dropdown */}
             <div>
@@ -85,10 +112,26 @@ const MovieDetailsPage = () => {
               </select>
             </div>
 
+
+              {/* Release Date (converted from number or timestamp if needed) */}
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Release Date:</span>{' '}
+              {isNaN(movie.releaseDate)
+                ? new Date(movie.releaseDate).toLocaleDateString()
+                : `Day ${movie.releaseDate}`} {/* Handle numeric fallback */}
+            </p>
+
+            {/* Is Now Showing */}
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Now Showing:</span>{' '}
+              {movie.isNowShowing ? 'Yes' : 'No'}
+            </p>
+
+
             {/* Seat Dropdown */}
             <div>
               <label className="block text-sm mb-1">Seat</label>
-              <select
+              {/* <select
                 className="w-full p-2 rounded bg-zinc-900 text-white"
                 value={seat}
                 onChange={(e) => setSeat(e.target.value)}
@@ -100,7 +143,7 @@ const MovieDetailsPage = () => {
                       {s.seat}
                     </option>
                   ))}
-              </select>
+              </select> */}
             </div>
 
             {/* Ticket Price */}

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
+import { Link } from 'react-router-dom';
 
-const AdminCreateMovie = () => {
-  const [locations, setLocations] = useState([]);
-  const [filteredLocations, setFilteredLocations] = useState([]);
-  const [movieType, setMovieType] = useState('');
-  const [formData, setFormData] = useState({
+const CreateCinemaMovie = () => {
+
+    const [locations, setLocations] = useState([]);
+    const [filteredLocations, setFilteredLocations] = useState([]);
+    const [movieType, setMovieType] = useState('');
+    const [formData, setFormData] = useState({
     title: '',
     synopsis: '',
     genre: '',
@@ -18,91 +20,100 @@ const AdminCreateMovie = () => {
     location: '',
     isNowShowing: true,
     posterUrl: '', // ✅ Added this
-  });
+    });
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchLocations = async () => {
-      try {
+        try {
         const res = await axios.get(`${baseUrl}cinemalocations`);
         setLocations(res.data);
-      } catch (err) {
+        } catch (err) {
         console.error('Failed to fetch locations', err);
-      }
+        }
     };
     fetchLocations();
-  }, []);
+    }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
 
-    if (name === 'location') {
-      const suggestions = locations.filter((loc) =>
-        loc.name.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredLocations(suggestions);
-    }
+        if (name === 'location') {
+        const suggestions = locations.filter((loc) =>
+            loc.name.toLowerCase().includes(value.toLowerCase())
+        );
+        setFilteredLocations(suggestions);
+        }
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+        setFormData({
+        ...formData,
+        [name]: value,
+        });
+    };
 
-  const handleLocationSelect = (name) => {
+    const handleLocationSelect = (name) => {
     setFormData({ ...formData, location: name });
     setFilteredLocations([]);
-  };
+    };
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payload = {//  for formating the data in the correct format
-      ...formData,
-      genre: formData.genre.split(',').map((g) => g.trim()),
-      cast: formData.cast.split(',').map((c) => c.trim()),
-      location: formData.location ? [formData.location] : [],
-      releaseDate: Number(formData.releaseDate),
+        ...formData,
+        genre: formData.genre.split(',').map((g) => g.trim()),
+        cast: formData.cast.split(',').map((c) => c.trim()),
+        location: formData.location?.trim() || '',
+        releaseDate: Number(formData.releaseDate),
     };
 
-    const endpointMap = {// to choose which endpoint to send to
-      Cinema: 'cinema',
-      YouTube: 'youtube',
-      Streaming: 'streaming',
-    };
+    console.log(payload)
 
     try {
-      await axios.post(`${baseUrl}${endpointMap[movieType]}`, payload);//appends the endpoint to baseUrls
-      alert('Movie created successfully!');
+        await axios.post(`${baseUrl}cinema`, payload);
+        alert('Movie created successfully!');
     } catch (err) {
-      console.error('Failed to create movie', err);
-      alert('Error creating movie');
+        console.error('Failed to create movie', err);
+        alert('Error creating movie');
     }
-    console.log(`${baseUrl}${endpointMap[movieType]}`, payload);
-  };
+    };
+
 
   return (
     <div className="bg-black text-white px-4 py-8">
+
+        <div className="flex justify-center gap-4 mb-8 mt-8">
+          <Link to='/admin'><button
+            className={`px-4 py-2 rounded hover:bg-blue-700`}>
+            Manage Movies
+          </button></Link>
+
+          <Link to='#'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Cinema Movie
+          </button></Link>
+
+          <Link to='/admin/createstreamingmovie'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Streaming Movie
+          </button></Link>
+
+          <Link to='/admin/createyoutubemovie'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Youtube Movie
+          </button></Link>
+          
+        </div>
+
+
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-        Create New Movie
+        Create New Cinema Movie
       </h2>
       <form
         onSubmit={handleSubmit}
         className="max-w-2xl mx-auto grid grid-cols-1 gap-4"
       >
-        <label className="block">
-          <span className="text-sm">Movie Type</span>
-          <select
-            value={movieType}
-            onChange={(e) => setMovieType(e.target.value)}
-            required
-            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
-          >
-            <option value="">Select Movie Type</option>
-            <option value="YouTube">YouTube</option>
-            <option value="Cinema">Cinema</option>
-            <option value="Streaming">Streaming</option>
-          </select>
-        </label>
+       
 
         <label>
           <span className="text-sm">Title</span>
@@ -199,7 +210,7 @@ const AdminCreateMovie = () => {
           />
         </label>
 
-        {/* ✅ Poster URL field */}
+        {/*Poster URL field */}
         <label>
           <span className="text-sm">Poster URL</span>
           <input
@@ -241,13 +252,13 @@ const AdminCreateMovie = () => {
 
         <button
           type="submit"
-          className="bg-red-600 hover:bg-red-700 transition-colors py-2 px-4 rounded-md text-white font-semibold"
+          className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-md text-white font-semibold"
         >
           Create Movie
         </button>
       </form>
     </div>
-  );
-};
+  )
+}   
 
-export default AdminCreateMovie;
+export default CreateCinemaMovie

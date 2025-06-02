@@ -3,7 +3,7 @@ import SearchBar from '../../Components/SearchBar'
 import { useState, useMemo } from 'react'
 import movies from '../../data/movies';
 import AdminMovies from '../../Components/Admin/AdminMovies';
-import AdminCreateMovies from '../../Components/Admin/AdminCreateMovies';
+import { Link } from 'react-router-dom';
 
 
 const AdminPage = () => {
@@ -11,15 +11,7 @@ const AdminPage = () => {
     const [search, setSearch] = useState('');
     const [activeTab, setActiveTab] = useState('manage');
 
-      const renderComponent = () => {
-        switch (activeTab) {
-          case 'create':
-            return <AdminCreateMovies />;
-          case 'manage':
-          default:
-            return <AdminMovies movies={filteredMovies} />;
-        }
-      };
+      
 
     const filteredMovies = useMemo(() => {
         const query = search.toLowerCase();
@@ -38,22 +30,28 @@ const AdminPage = () => {
         {/* Top Buttons */}
         <div className="flex justify-center gap-4 mb-8 mt-8">
           <button
-            className={`px-4 py-2 rounded ${activeTab === 'manage' ? 'bg-blue-600' : 'bg-gray-700'} hover:bg-blue-700`}
-            onClick={() => setActiveTab('manage')}
-          >
+            className={`px-4 py-2 rounded hover:bg-blue-700`}>
             Manage Movies
           </button>
-          <button
-            className={`px-4 py-2 rounded ${activeTab === 'create' ? 'bg-green-600' : 'bg-gray-700'} hover:bg-green-700`}
-            onClick={() => setActiveTab('create')}
-          >
-            Create Movie
-          </button>
+
+          <Link to='createcinemamovie'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Cinema Movie
+          </button></Link>
+
+          <Link to='createstreamingmovie'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Streaming Movie
+          </button></Link>
+
+          <Link to='createyoutubemovie'><button
+            className={`px-4 py-2 rounded bg-customBlue`} >
+            Create Youtube Movie
+          </button></Link>
           
         </div>
 
-        {/* Render selected tab */}
-        {renderComponent()}
+        <AdminMovies movies={filteredMovies} />
       </div>
     </div>
   )
