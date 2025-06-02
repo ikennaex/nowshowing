@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import blogPosts from '../data/blog';
+import { baseUrl } from '../baseUrl';
+import axios from 'axios';
+import Loader from '../Components/Loader';
 
 const BlogDetails = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const found = blogPosts.find((post) => String(post.id) === String(id));
-    if (found) {
-      setBlog(found);
-    } else {
-      setError('Blog post not found.');
-    }
-  }, [id]);
+    const fetchBlog = async () => {
+        try {
+        const response = await axios.get(`${baseUrl}blog/${id}`);
+        const blogData = response.data;
+        setBlog(blogData);
+        } catch (err) {
+        setError("Failed to fetch movie details.");
+        } finally {
+        setLoading(false);
+        }
+    };
+    fetchBlog();
 
+    }, [id]);
+
+  if (loading) return <Loader />;
   if (error) {
-    return <div className="text-white text-center p-6">{error}</div>;
+  return <div className="text-white text-center p-6">{error}</div>;
   }
 
   if (!blog) return null;
@@ -25,6 +36,7 @@ const BlogDetails = () => {
   return (
     <div className="p-6 text-white bg-black min-h-screen">
       <div className="max-w-4xl mx-auto space-y-4">
+        <img src={blog.img} alt={blog.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
         <h1 className="text-3xl font-bold text-customBlue">{blog.title}</h1>
         <div className="text-sm text-gray-400">
           <span>By {blog.author}</span> | <span>{blog.date} at {blog.time}</span>

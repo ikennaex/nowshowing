@@ -20,6 +20,7 @@ const CreateCinemaMovie = () => {
     location: '',
     isNowShowing: true,
     posterUrl: '', // ✅ Added this
+    showtimes: '',
     });
 
     useEffect(() => {
@@ -165,7 +166,7 @@ const CreateCinemaMovie = () => {
         <label>
           <span className="text-sm">Release Date (number)</span>
           <input
-            type="number"
+            type="date"
             name="releaseDate"
             value={formData.releaseDate}
             onChange={handleChange}
@@ -217,6 +218,18 @@ const CreateCinemaMovie = () => {
             type="text"
             name="posterUrl"
             value={formData.posterUrl}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
+
+        <label>
+          <span className="text-sm">Showtimes</span>
+          <input
+            type="date"
+            name="showtimes"
+            value={formData.showtimes}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"

@@ -36,7 +36,7 @@ const CurrentlyPlaying = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {fetchedCinemaMovies.map((movie) => (
-          <Link to={`/movie/${movie._id}`} key={movie._id}>
+          <Link to={`/cinemamovie/${movie._id}`} key={movie._id}>
             <div className="cursor-pointer transform hover:scale-105 transition duration-300">
               <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
                 <img

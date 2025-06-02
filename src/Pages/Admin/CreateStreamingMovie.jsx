@@ -9,7 +9,7 @@ const CreateStreamingMovie = () => {
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [formData, setFormData] = useState({
     title: '',
-    desc: '',
+    synopsis: '',
     genre: '',
     duration: '',
     link: '',
@@ -119,9 +119,9 @@ const CreateStreamingMovie = () => {
         </label>
 
         <label>
-          <span className="text-sm">desc</span>
+          <span className="text-sm">Synopsis</span>
           <textarea
-            name="desc"
+            name="synopsis"
             value={formData.synopsis}
             onChange={handleChange}
             required

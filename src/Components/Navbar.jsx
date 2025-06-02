@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* Centered Nav Links */}
         <ul className="absolute left-1/2 transform -translate-x-1/2 flex space-x-12 hidden md:flex">
           <li><NavLink exact="true" to="/buy-tickets" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BUY TICKETS</NavLink></li>
-          <li><NavLink to="/trending" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>STREAMING</NavLink></li>
+          <li><NavLink to="/streaming" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>STREAMING</NavLink></li>
           <li><NavLink to="/blog" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BLOG</NavLink></li>
           <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>CONTACT</NavLink></li>
         </ul>
