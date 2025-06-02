@@ -65,7 +65,7 @@ const CreateCinemaMovie = () => {
         genre: formData.genre.split(',').map((g) => g.trim()),
         cast: formData.cast.split(',').map((c) => c.trim()),
         location: formData.location?.trim() || '',
-        releaseDate: Number(formData.releaseDate),
+        // releaseDate: Number(formData.releaseDate),
     };
 
     console.log(payload)
