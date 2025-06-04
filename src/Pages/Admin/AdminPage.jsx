@@ -1,26 +1,56 @@
 import React from 'react'
 import SearchBar from '../../Components/SearchBar'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import movies from '../../data/movies';
 import AdminMovies from '../../Components/Admin/AdminMovies';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import { baseUrl } from '../../baseUrl';
+import Loader from '../../Components/Loader';
 
 const AdminPage = () => {
 
-    const [search, setSearch] = useState('');
-    const [activeTab, setActiveTab] = useState('manage');
+  const [search, setSearch] = useState('');
+  const [allMovies, setAllMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-      
+  useEffect(() => {
+    const fetchMovies = async () => {
+      setLoading(true);
+      try {
+        const [cinemaRes, streamingRes, youtubeRes] = await Promise.all([
+          axios.get(`${baseUrl}cinema`),
+          axios.get(`${baseUrl}streaming`),
+          axios.get(`${baseUrl}youtube`)
+        ]);
+
+        const mergedMovies = [
+          ...cinemaRes.data.map(movie => ({ ...movie, type: 'cinema' })),
+          ...streamingRes.data.map(movie => ({ ...movie, type: 'streaming' })),
+          ...youtubeRes.data.map(movie => ({ ...movie, type: 'youtube' }))
+        ];
+
+        setAllMovies(mergedMovies);
+      } catch (error) {
+        console.error('Failed to fetch movies:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
     const filteredMovies = useMemo(() => {
-        const query = search.toLowerCase();
-        return movies.filter(
+      const query = search.toLowerCase();
+      return allMovies.filter(
         (movie) =>
-            movie.title.toLowerCase().includes(query) ||
-            movie.body.toLowerCase().includes(query)
-        );
-    }, [search]);
+          movie.title?.toLowerCase().includes(query) ||
+          movie.body?.toLowerCase().includes(query)
+      );
+    }, [search, allMovies]);
+
+    if (loading) return <Loader />;
 
   return (
     <div>

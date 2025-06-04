@@ -16,6 +16,9 @@ import CreateYoutubeMovie from './Pages/Admin/CreateYoutubeMovie'
 import StreamingPage from './Pages/StreamingPage'
 import CinemaMovieDetailPage from './Pages/MovieDetailPages/CinemaMovieDetailPage'
 import StreamingMovieDetailPage from './Pages/MovieDetailPages/StreamingMovieDetailPage'
+import EditCinemaMovie from './Pages/Admin/Edit/EditCinemaMovie'
+import EditStreamingMovie from './Pages/Admin/Edit/EditStreamingMovie'
+import EditYoutubeMovie from './Pages/Admin/Edit/EditYoutubeMovie'
 
 
 const App = () => {
@@ -37,6 +40,9 @@ const App = () => {
         <Route path="/admin/createstreamingmovie" element={<CreateStreamingMovie />} />
         <Route path="/admin/createyoutubemovie" element={<CreateYoutubeMovie />} />
         <Route path="/streaming" element={<StreamingPage />} />
+        <Route path="/admin/editcinemamovie/:id" element={<EditCinemaMovie />} />
+        <Route path="/admin/editstreamingmovie/:id" element={<EditStreamingMovie />} />
+        <Route path="/admin/edityoutubemovie/:id" element={<EditYoutubeMovie />} />
       </Routes>
       </div>
       <Footer/>

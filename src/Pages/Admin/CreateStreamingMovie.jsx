@@ -65,6 +65,7 @@ const CreateStreamingMovie = () => {
 
     try {
         await axios.post(`${baseUrl}streaming`, payload);
+        alert('Movie created successfully!');
     } catch (err) {
         console.error('Failed to create movie', err);
         alert('Error creating movie');

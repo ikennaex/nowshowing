@@ -35,7 +35,7 @@ const AdminMovies = ({ movies }) => {
 
             <div className="flex gap-2">
               <button
-                onClick={() => navigate(`/admin/edit-movie/${movie.id}`)}
+                onClick={() => navigate(`/admin/edit${movie.type}movie/${movie._id}`)}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
               >
                 Edit
