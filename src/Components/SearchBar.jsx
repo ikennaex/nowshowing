@@ -14,12 +14,12 @@ const SearchBar = ({ search, setSearch, suggestions = [] }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for movies"
-          className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-12 px-4 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-customYellow transition"
+          className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-12 p-7 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-customYellow transition"
         />
 
         <button
           type="submit"
-          className="flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-customPurple text-black font-medium hover:bg-customBlue transition"
+          className="flex items-center justify-center gap-2 h-12 px-5 p-7 rounded-xl bg-customPurple text-black font-medium hover:bg-customBlue transition"
         >
           <CiSearch className="text-white" size={22} />
           <span className=" sm:inline text-white">Search</span>
@@ -28,7 +28,7 @@ const SearchBar = ({ search, setSearch, suggestions = [] }) => {
 
       {/* Suggestions Dropdown */}
       {search && suggestions.length > 0 && (
-        <div className="absolute top-full mt-1 w-full bg-zinc-800 rounded-md shadow-lg max-h-60 overflow-y-auto text-white">
+        <div className="absolute top-full mt-1 w-full bg-zinc-800 p-7 rounded-md shadow-lg max-h-60 overflow-y-auto text-white">
           {suggestions.map((item, index) => (
             <div
               key={index}

@@ -34,7 +34,7 @@ const BlogDetails = () => {
   if (!blog) return null;
 
   return (
-    <div className="p-6 text-white bg-black min-h-screen">
+    <div className="p-9 text-white bg-black min-h-screen">
       <div className="max-w-4xl mx-auto space-y-4">
         <img src={blog.img} alt={blog.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
         <h1 className="text-3xl font-bold text-customBlue">{blog.title}</h1>
