@@ -26,7 +26,9 @@ const CurrentlyPlaying = () => {
     fetchCinemaMovies();
   }, []);
 
-  if (loading) return <Loader />;
+  if (loading) return (<div className='mt-24'>
+    <Loader />
+  </div>) ;
 
   return (
     <div className="px-4 py-8 bg-black text-white">

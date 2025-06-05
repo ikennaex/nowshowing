@@ -52,7 +52,9 @@ const AdminPage = () => {
     );
   }, [search, allMovies]);
 
-  if (loading) return <Loader />;
+  if (loading) return (<div className='mt-24'>
+    <Loader />
+  </div>) ;
 
   return (
     <div>
