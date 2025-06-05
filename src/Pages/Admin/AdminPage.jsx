@@ -3,10 +3,10 @@ import SearchBar from "../../Components/SearchBar";
 import { useState, useMemo, useEffect } from "react";
 import movies from "../../data/movies";
 import AdminMovies from "../../Components/Admin/AdminMovies";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
 import Loader from "../../Components/Loader";
+import AdminNav from "../../Components/Admin/AdminNav";
 
 const AdminPage = () => {
   const [search, setSearch] = useState("");
@@ -61,29 +61,7 @@ const AdminPage = () => {
       <div className="px-4 py-8 bg-black text-white min-h-screen">
         <SearchBar search={search} setSearch={setSearch} />
         {/* Top Buttons */}
-        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-8 mt-8 px-4">
-          <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
-            Manage Movies
-          </button>
-
-          <Link to="createcinemamovie">
-            <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
-              Create Cinema Movie
-            </button>
-          </Link>
-
-          <Link to="createstreamingmovie">
-            <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
-              Create Streaming Movie
-            </button>
-          </Link>
-
-          <Link to="createyoutubemovie">
-            <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
-              Create Youtube Movie
-            </button>
-          </Link>
-        </div>
+        <AdminNav/>
 
         <AdminMovies movies={filteredMovies} />
       </div>

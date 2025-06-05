@@ -36,13 +36,13 @@ const AdminMovies = ({ movies }) => {
             <div className="flex gap-2">
               <button
                 onClick={() => navigate(`/admin/edit${movie.type}movie/${movie._id}`)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl text-sm"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDelete(movie.id)}
-                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-xl text-sm"
               >
                 Delete
               </button>

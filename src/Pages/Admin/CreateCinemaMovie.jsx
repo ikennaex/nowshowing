@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
 import { Link } from 'react-router-dom';
+import AdminNav from '../../Components/Admin/AdminNav';
 
 const CreateCinemaMovie = () => {
 
@@ -83,28 +84,7 @@ const CreateCinemaMovie = () => {
   return (
     <div className="bg-black text-white px-4 py-8">
 
-        <div className="flex justify-center gap-4 mb-8 mt-8">
-          <Link to='/admin'><button
-            className={`px-4 py-2 rounded hover:bg-blue-700`}>
-            Manage Movies
-          </button></Link>
-
-          <Link to='#'><button
-            className={`px-4 py-2 rounded bg-customBlue`} >
-            Create Cinema Movie
-          </button></Link>
-
-          <Link to='/admin/createstreamingmovie'><button
-            className={`px-4 py-2 rounded bg-customBlue`} >
-            Create Streaming Movie
-          </button></Link>
-
-          <Link to='/admin/createyoutubemovie'><button
-            className={`px-4 py-2 rounded bg-customBlue`} >
-            Create Youtube Movie
-          </button></Link>
-          
-        </div>
+        <AdminNav/>
 
 
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
@@ -265,7 +245,7 @@ const CreateCinemaMovie = () => {
 
         <button
           type="submit"
-          className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-md text-white font-semibold"
+          className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
         >
           Create Movie
         </button>

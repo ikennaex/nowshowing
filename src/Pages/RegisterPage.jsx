@@ -21,25 +21,25 @@ const RegisterPage = () => {
           <h2 className="text-2xl text-center mb-6 font-semibold text-white">Create an Account</h2>
           <form className="flex flex-col gap-5">
             <input
-              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
+              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
               type="text"
               required
               placeholder="Full Name"
             />
             <input
-              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
+              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
               type="email"
               required
               placeholder="Email Address"
             />
             <input
-              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
+              className="h-14 border border-gray-700 p-4 bg-[#222222] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-customBlue placeholder-gray-400"
               type="password"
               required
               placeholder="Password"
             />
             <button
-              className="bg-customBlue h-14 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              className="bg-customBlue h-14 text-white text-lg font-semibold rrounded-xl hover:bg-blue-700 transition-colors duration-300"
               type="submit"
             >
               Register
@@ -47,7 +47,7 @@ const RegisterPage = () => {
           </form>
 
           {/* Google Login */}
-          <button className="mt-5 h-14 w-full bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+          <button className="mt-5 h-14 w-full bg-white text-black rounded-xl font-semibold hover:bg-gray-200 transition duration-300">
             Continue with Google
           </button>
 

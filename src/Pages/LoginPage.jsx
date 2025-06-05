@@ -32,7 +32,7 @@ const LoginPage = () => {
               placeholder="Password"
             />
             <button
-              className="bg-customBlue h-14 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              className="bg-customBlue h-14 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-300"
               type="submit"
             >
               Login
@@ -40,7 +40,7 @@ const LoginPage = () => {
           </form>
 
           {/* Google Login */}
-          <button className="mt-5 h-14 w-full bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+          <button className="mt-5 h-14 w-full bg-white text-black rounded-xl font-semibold hover:bg-gray-200 transition duration-300">
             Continue with Google
           </button>
 

@@ -209,7 +209,7 @@ const EditStreamingMovie = () => {
 
       <button
         type="submit"
-        className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-md text-white font-semibold"
+        className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
       >
         Update Movie
       </button>
