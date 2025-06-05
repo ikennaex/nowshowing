@@ -19,6 +19,8 @@ import StreamingMovieDetailPage from './Pages/MovieDetailPages/StreamingMovieDet
 import EditCinemaMovie from './Pages/Admin/Edit/EditCinemaMovie'
 import EditStreamingMovie from './Pages/Admin/Edit/EditStreamingMovie'
 import EditYoutubeMovie from './Pages/Admin/Edit/EditYoutubeMovie'
+import YoutubePage from './Pages/YoutubePage'
+import YouTubeMovieDetailPage from './Pages/MovieDetailPages/YouTubeMovieDetailPage'
 
 
 const App = () => {
@@ -33,6 +35,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cinemamovie/:id" element={<CinemaMovieDetailPage />} />
         <Route path="/streamingmovie/:id" element={<StreamingMovieDetailPage />} />
+        <Route path="/youtubemovie/:id" element={<YouTubeMovieDetailPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="/admin" element={<AdminPage />} />
@@ -43,6 +46,7 @@ const App = () => {
         <Route path="/admin/editcinemamovie/:id" element={<EditCinemaMovie />} />
         <Route path="/admin/editstreamingmovie/:id" element={<EditStreamingMovie />} />
         <Route path="/admin/edityoutubemovie/:id" element={<EditYoutubeMovie />} />
+        <Route path="/youtube" element={<YoutubePage />} />
       </Routes>
       </div>
       <Footer/>

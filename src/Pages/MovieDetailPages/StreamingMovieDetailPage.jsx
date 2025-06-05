@@ -22,16 +22,7 @@ const StreamingMovieDetailPage = () => {
         setMovie(movieData);
 
         // Set default dropdown values
-        if (movieData.location?.length) {
-            setLocation(movieData.location[0]);
-        }
-        if (movieData.showtimes?.length) {
-            setShowtime(movieData.showtimes[0]);
-        }
-        const firstAvailableSeat = movieData.seats?.find(s => s.available);
-        if (firstAvailableSeat) {
-            setSeat(firstAvailableSeat.seat);
-        }
+        
         } catch (err) {
         setError("Failed to fetch movie details.");
         } finally {

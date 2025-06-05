@@ -26,6 +26,7 @@ const Navbar = () => {
           <li><NavLink exact="true" to="/buy-tickets" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BUY TICKETS</NavLink></li>
           <li><NavLink to="/streaming" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>STREAMING</NavLink></li>
           <li><NavLink to="/blog" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>BLOG</NavLink></li>
+          <li><NavLink to="/youtube" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>YOUTUBE</NavLink></li>
           <li><NavLink to="/contact" className={({ isActive }) => `${isActive ? "active-link" : ""} navlink-a transition transform hover:-translate-y-1 duration-200 text-sm font-bold`}>CONTACT</NavLink></li>
         </ul>
 
