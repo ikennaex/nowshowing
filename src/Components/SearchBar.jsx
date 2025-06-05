@@ -19,7 +19,7 @@ const SearchBar = ({ search, setSearch, suggestions = [] }) => {
 
         <button
           type="submit"
-          className="flex items-center justify-center gap-2 h-12 px-5 rounded-md bg-customPurple text-black font-medium hover:bg-customBlue transition"
+          className="flex items-center justify-center gap-2 h-12 px-5 rounded-xl bg-customPurple text-black font-medium hover:bg-customBlue transition"
         >
           <CiSearch className="text-white" size={22} />
           <span className=" sm:inline text-white">Search</span>
