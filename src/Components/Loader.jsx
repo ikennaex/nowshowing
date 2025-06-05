@@ -1,14 +1,25 @@
-import React from 'react'
-import "../styles/loader.css"
+import React from 'react';
+import "../Styles/Loader.css";
 
 const Loader = () => {
   return (
-    <div className=''>
-      <svg className='loader-svg' viewBox="25 25 50 50">
-  <circle className='loader-circle' r="20" cy="50" cx="50"></circle>
-</svg>
+    <div className="flex justify-center items-center w-full h-full">
+      <div className="loader">
+        <div className="bar1"></div>
+        <div className="bar2"></div>
+        <div className="bar3"></div>
+        <div className="bar4"></div>
+        <div className="bar5"></div>
+        <div className="bar6"></div>
+        <div className="bar7"></div>
+        <div className="bar8"></div>
+        <div className="bar9"></div>
+        <div className="bar10"></div>
+        <div className="bar11"></div>
+        <div className="bar12"></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

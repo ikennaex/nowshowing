@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { CiSearch } from "react-icons/ci";
 
 const SearchBar = ({ search, setSearch, suggestions = [] }) => {
@@ -6,7 +6,7 @@ const SearchBar = ({ search, setSearch, suggestions = [] }) => {
     <div className="w-full px-4 md:px-8 relative z-50 mt-50 mt-10">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center"
+        className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center"
       >
         <input
           type="text"
@@ -14,15 +14,15 @@ const SearchBar = ({ search, setSearch, suggestions = [] }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search for movies"
-          className="w-full sm:w-auto flex-1 h-12 px-4 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-customYellow transition"
+          className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-12 px-4 rounded-md bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-customYellow transition"
         />
 
         <button
           type="submit"
           className="flex items-center justify-center gap-2 h-12 px-5 rounded-md bg-customPurple text-black font-medium hover:bg-customBlue transition"
         >
-          <CiSearch size={22} />
-          <span className=" sm:inline">Search</span>
+          <CiSearch className="text-white" size={22} />
+          <span className=" sm:inline text-white">Search</span>
         </button>
       </form>
 
