@@ -1,7 +1,6 @@
 import React from "react";
 import SearchBar from "../../Components/SearchBar";
 import { useState, useMemo, useEffect } from "react";
-import movies from "../../data/movies";
 import AdminMovies from "../../Components/Admin/AdminMovies";
 import axios from "axios";
 import { baseUrl } from "../../baseUrl";
