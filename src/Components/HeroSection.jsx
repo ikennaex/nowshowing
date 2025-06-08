@@ -26,8 +26,8 @@ const HeroSection = () => {
       <h1 className="text-3xl md:text-5xl font-bold mb-4">{currentMovie.title}</h1>
       <p className="text-lg md:text-xl max-w-xl">{currentMovie.body}</p>
 
-      <button className="mt-6 w-28 bg-white text-black font-semibold py-2 rounded-xl border-2 border-white hover:bg-customBlue hover:text-white transition book-now">
-        Book Now
+      <button className="mt-6 w-fit bg-white text-black font-semibold py-2 px-6  rounded-xl hover:bg-black hover:text-white transition book-now">
+        Movie details
       </button>
     </div>
 

@@ -37,7 +37,7 @@ const CurrentlyPlaying = () => {
       </h3>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {fetchedCinemaMovies.map((movie) => (
+        {fetchedCinemaMovies.slice().reverse().map((movie) => (
           <Link to={`/cinemamovie/${movie._id}`} key={movie._id}>
             <div className="cursor-pointer transform hover:scale-105 transition duration-300">
               <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
