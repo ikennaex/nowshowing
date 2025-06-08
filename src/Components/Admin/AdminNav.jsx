@@ -25,6 +25,19 @@ const AdminNav = () => {
             Create Youtube Movie
         </button>
         </Link>
+
+        <Link to="/admin/createblogpost">
+        <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
+            Create Blog Post
+        </button>
+        </Link>
+
+
+        <Link to="/admin/blogposts">
+        <button className="px-4 py-2 rounded-xl border border-customBlue text-customBlue hover:bg-customBlue hover:text-white focus:bg-customBlue focus:text-white transition">
+            Blog Posts
+        </button>
+        </Link>
     </div>
   )
 }
