@@ -9,6 +9,7 @@ const CreateCinemaMovie = () => {
     const [locations, setLocations] = useState([]);
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [movieType, setMovieType] = useState('');
+    const [preview, setPreview] = useState(null);
     const [formData, setFormData] = useState({
     title: '',
     synopsis: '',
@@ -20,7 +21,7 @@ const CreateCinemaMovie = () => {
     language: '',
     location: '',
     isNowShowing: true,
-    posterUrl: '', // ✅ Added this
+    posterUrl: null, // ✅ Added this
     showtimes: '',
     });
 
@@ -79,6 +80,15 @@ const CreateCinemaMovie = () => {
         alert('Error creating movie');
     }
     };
+
+  // Handle Image Upload
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, posterUrl: file });
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
 
   return (
@@ -195,13 +205,14 @@ const CreateCinemaMovie = () => {
         <label>
           <span className="text-sm">Poster URL</span>
           <input
-            type="text"
+            type="file"
+            accept="image/*"
             name="posterUrl"
-            value={formData.posterUrl}
-            onChange={handleChange}
+            onChange={handleImageChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
+          {preview && <img src={preview} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded-lg" />}
         </label>
 
         <label>
