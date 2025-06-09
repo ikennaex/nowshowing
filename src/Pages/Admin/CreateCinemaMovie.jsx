@@ -10,7 +10,7 @@ const CreateCinemaMovie = () => {
     const [filteredLocations, setFilteredLocations] = useState([]);
     const [movieType, setMovieType] = useState('');
     const [preview, setPreview] = useState(null);
-    const [formData, setFormData] = useState({
+    const [cinemaMovie, setCinemaMovie] = useState({
     title: '',
     synopsis: '',
     genre: '',
@@ -21,7 +21,7 @@ const CreateCinemaMovie = () => {
     language: '',
     location: '',
     isNowShowing: true,
-    posterUrl: null, // ✅ Added this
+    posterUrl: null, // 
     showtimes: '',
     });
 
@@ -48,48 +48,55 @@ const CreateCinemaMovie = () => {
         setFilteredLocations(suggestions);
         }
 
-        setFormData({
-        ...formData,
+        setCinemaMovie({
+        ...cinemaMovie,
         [name]: value,
         });
     };
 
     const handleLocationSelect = (name) => {
-    setFormData({ ...formData, location: name });
+    setCinemaMovie({ ...cinemaMovie, location: name });
     setFilteredLocations([]);
     };
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const payload = {//  for formating the data in the correct format
-        ...formData,
-        genre: formData.genre.split(',').map((g) => g.trim()),
-        cast: formData.cast.split(',').map((c) => c.trim()),
-        location: formData.location?.trim() || '',
-        // releaseDate: Number(formData.releaseDate),
+    // Handle Image Upload
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setCinemaMovie({ ...cinemaMovie, posterUrl: file });
+        setPreview(URL.createObjectURL(file));
+      }
     };
 
-    console.log(payload)
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      const formData = new FormData();
+
+      
+      // Append filed to form data 
+      formData.append("title", cinemaMovie.title);
+      formData.append("synopsis", cinemaMovie.synopsis);
+      formData.append("genre", JSON.stringify(cinemaMovie.genre.split(',').map(g => g.trim())));
+      formData.append("duration", cinemaMovie.duration);
+      formData.append("releaseDate", cinemaMovie.releaseDate);
+      formData.append("director", cinemaMovie.director);
+      formData.append("cast", JSON.stringify(cinemaMovie.cast.split(',').map(c => c.trim())));
+      formData.append("language", cinemaMovie.language);
+      formData.append("location", cinemaMovie.location?.trim() || '');
+      formData.append("posterUrl", cinemaMovie.posterUrl); // file
+      formData.append("showtimes", cinemaMovie.showtimes);
+      formData.append("isNowShowing", cinemaMovie.isNowShowing);
 
     try {
-        await axios.post(`${baseUrl}cinema`, payload);
+        await axios.post(`${baseUrl}cinema`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         alert('Movie created successfully!');
     } catch (err) {
         console.error('Failed to create movie', err);
         alert('Error creating movie');
     }
     };
-
-  // Handle Image Upload
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData({ ...formData, posterUrl: file });
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-
 
   return (
     <div className="bg-black text-white px-4 py-8">
@@ -111,7 +118,7 @@ const CreateCinemaMovie = () => {
           <input
             type="text"
             name="title"
-            value={formData.title}
+            value={cinemaMovie.title}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -122,7 +129,7 @@ const CreateCinemaMovie = () => {
           <span className="text-sm">Synopsis</span>
           <textarea
             name="synopsis"
-            value={formData.synopsis}
+            value={cinemaMovie.synopsis}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -133,8 +140,9 @@ const CreateCinemaMovie = () => {
           <span className="text-sm">Genre (comma-separated)</span>
           <input
             type="text"
+            placeholder='eg: Action, Thriller'
             name="genre"
-            value={formData.genre}
+            value={cinemaMovie.genre}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -142,11 +150,12 @@ const CreateCinemaMovie = () => {
         </label>
 
         <label>
-          <span className="text-sm">Duration (time or format)</span>
+          <span className="text-sm">Duration (time in minutes)</span>
           <input
-            type="text"
+            type="number"
+            placeholder='eg: 1hr 30m is 90m'
             name="duration"
-            value={formData.duration}
+            value={cinemaMovie.duration}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -158,7 +167,7 @@ const CreateCinemaMovie = () => {
           <input
             type="date"
             name="releaseDate"
-            value={formData.releaseDate}
+            value={cinemaMovie.releaseDate}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -170,7 +179,7 @@ const CreateCinemaMovie = () => {
           <input
             type="text"
             name="director"
-            value={formData.director}
+            value={cinemaMovie.director}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -181,8 +190,9 @@ const CreateCinemaMovie = () => {
           <span className="text-sm">Cast (comma-separated)</span>
           <input
             type="text"
+            placeholder='eg: Mercy Johnson, Sam Loco'
             name="cast"
-            value={formData.cast}
+            value={cinemaMovie.cast}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -193,8 +203,9 @@ const CreateCinemaMovie = () => {
           <span className="text-sm">Language</span>
           <input
             type="text"
+            placeholder='eg: English'
             name="language"
-            value={formData.language}
+            value={cinemaMovie.language}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -203,7 +214,7 @@ const CreateCinemaMovie = () => {
 
         {/*Poster URL field */}
         <label>
-          <span className="text-sm">Poster URL</span>
+          <span className="text-sm">Image Cover</span>
           <input
             type="file"
             accept="image/*"
@@ -218,9 +229,9 @@ const CreateCinemaMovie = () => {
         <label>
           <span className="text-sm">Showtimes</span>
           <input
-            type="date"
+            type="time"
             name="showtimes"
-            value={formData.showtimes}
+            value={cinemaMovie.showtimes}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -232,8 +243,9 @@ const CreateCinemaMovie = () => {
           <span className="text-sm">Cinema Location</span>
           <input
             type="text"
+            placeholder='eg: Filmworld Cinema, Lekki'
             name="location"
-            value={formData.location}
+            value={cinemaMovie.location}
             onChange={handleChange}
             autoComplete="off"
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"

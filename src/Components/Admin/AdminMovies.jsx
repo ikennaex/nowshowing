@@ -25,7 +25,7 @@ const AdminMovies = ({ movies }) => {
           >
             <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
               <img
-                src={movie.image}
+                src={movie.posterUrl}
                 alt={movie.title}
                 className="w-full h-full object-cover"
               />

@@ -1,82 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { baseUrl } from '../../baseUrl';
-import { Link } from 'react-router-dom';
-import AdminNav from '../../Components/Admin/AdminNav';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { baseUrl } from "../../baseUrl";
+import { Link, useNavigate } from "react-router-dom";
+import AdminNav from "../../Components/Admin/AdminNav";
 
 const CreateStreamingMovie = () => {
+  const navigate = useNavigate();
+  const [preview, setPreview] = useState(null);
+  const [streamingMovie, setStreamingMovie] = useState({
+    title: "",
+    synopsis: "",
+    genre: "",
+    duration: "",
+    director: "",
+    link: "",
+    cast: "",
+    rating: "",
+    posterUrl: null,
+  });
 
-    const [locations, setLocations] = useState([]);
-    const [filteredLocations, setFilteredLocations] = useState([]);
-    const [formData, setFormData] = useState({
-    title: '',
-    synopsis: '',
-    genre: '',
-    duration: '',
-    link: '',
-    cast: '',
-    rating: '',
-    posterUrl: '',
+  // handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setStreamingMovie({
+      ...streamingMovie,
+      [name]: value,
     });
 
-    useEffect(() => {
-    const fetchLocations = async () => {
-        try {
-        const res = await axios.get(`${baseUrl}cinemalocations`);
-        setLocations(res.data);
-        } catch (err) {
-        console.error('Failed to fetch locations', err);
-        }
-    };
-    fetchLocations();
-    }, []);
+    console.log(streamingMovie)
+  };
 
-    
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+  // Handle Image Upload
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setStreamingMovie({ ...streamingMovie, posterUrl: file });
+      setPreview(URL.createObjectURL(file));
+    }
+  };
 
-        if (name === 'location') {
-        const suggestions = locations.filter((loc) =>
-            loc.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setFilteredLocations(suggestions);
-        }
-
-        setFormData({
-        ...formData,
-        [name]: value,
-        });
-    };
-
-    const handleLocationSelect = (name) => {
-    setFormData({ ...formData, location: name });
-    setFilteredLocations([]);
-    };
-
-    const handleSubmit = async (e) => {
+  // Handle submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {//  for formating the data in the correct format
-        ...formData,
-        genre: formData.genre.split(',').map((g) => g.trim()),
-        cast: formData.cast.split(',').map((c) => c.trim()),
-    };
+    const formData = new FormData();
 
-    
+    // Append filed to form data
+    formData.append("title", streamingMovie.title);
+    formData.append("synopsis", streamingMovie.synopsis);
+    formData.append(
+      "genre",
+      JSON.stringify(streamingMovie.genre.split(",").map((g) => g.trim()))
+    );
+    formData.append("duration", streamingMovie.duration);
+    formData.append("link", streamingMovie.releaseDate);
+    formData.append("director", streamingMovie.director);
+    formData.append("releaseDate", streamingMovie.releaseDate);
+    formData.append(
+      "cast",
+      JSON.stringify(streamingMovie.cast.split(",").map((c) => c.trim()))
+    );
+    formData.append("rating", streamingMovie.rating);
+    formData.append("location", streamingMovie.location?.trim() || "");
+    formData.append("posterUrl", streamingMovie.posterUrl); // file
 
     try {
-        await axios.post(`${baseUrl}streaming`, payload);
-        alert('Movie created successfully!');
+      await axios.post(`${baseUrl}streaming`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      alert("Movie created successfully!");
+      navigate("/streaming")
     } catch (err) {
-        console.error('Failed to create movie', err);
-        alert('Error creating movie');
+      console.error("Failed to create movie", err);
+      alert("Error creating movie");
     }
-    };
+  };
 
   return (
     <div className="bg-black text-white px-4 py-8">
-
-        <AdminNav/>
+      <AdminNav />
 
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
         Create New Streaming Movie
@@ -85,14 +88,12 @@ const CreateStreamingMovie = () => {
         onSubmit={handleSubmit}
         className="max-w-2xl mx-auto grid grid-cols-1 gap-4"
       >
-       
-
         <label>
           <span className="text-sm">Title</span>
           <input
             type="text"
             name="title"
-            value={formData.title}
+            value={streamingMovie.title}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -103,7 +104,7 @@ const CreateStreamingMovie = () => {
           <span className="text-sm">Synopsis</span>
           <textarea
             name="synopsis"
-            value={formData.synopsis}
+            value={streamingMovie.synopsis}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -114,8 +115,9 @@ const CreateStreamingMovie = () => {
           <span className="text-sm">Genre (comma-separated)</span>
           <input
             type="text"
+            placeholder='eg: Action, Thriller'
             name="genre"
-            value={formData.genre}
+            value={streamingMovie.genre}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
@@ -123,69 +125,99 @@ const CreateStreamingMovie = () => {
         </label>
 
         <label>
-          <span className="text-sm">Duration (time or format)</span>
+          <span className="text-sm">Duration (time in mintues)</span>
           <input
             type="text"
             name="duration"
-            value={formData.duration}
+            placeholder='eg: 1hr 30m is 90m'
+            value={streamingMovie.duration}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
         </label>
 
+        
 
+        <label>
+          <span className="text-sm">Director</span>
+          <input
+            type="text"
+            name="director"
+            value={streamingMovie.director}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
         <label>
           <span className="text-sm">Cast (comma-separated)</span>
           <input
             type="text"
+            placeholder='eg: Mercy Johnson, Sam Loco'
             name="cast"
-            value={formData.cast}
+            value={streamingMovie.cast}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
         </label>
 
+        <label>
+          <span className="text-sm">Release Date (number)</span>
+          <input
+            type="date"
+            name="releaseDate"
+            value={streamingMovie.releaseDate}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
 
         {/*Poster URL field */}
         <label>
-          <span className="text-sm">Poster URL</span>
+          <span className="text-sm">Movie Cover</span>
           <input
-            type="text"
+            type="file"
+            accept="image/*"
             name="posterUrl"
-            value={formData.posterUrl}
-            onChange={handleChange}
+            onChange={handleImageChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
+          {preview && (
+            <img
+              src={preview}
+              alt="Preview"
+              className="mt-3 w-32 h-32 object-cover rounded-lg"
+            />
+          )}
         </label>
-        
+
         <label>
           <span className="text-sm">Link</span>
           <input
             type="text"
             name="link"
-            value={formData.link}
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
-          />
-        </label>
-        
-        
-        <label>
-          <span className="text-sm">Rating</span>
-          <input
-            type="text"
-            name="rating"
-            value={formData.rating}
+            value={streamingMovie.link}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
         </label>
 
+        <label>
+          <span className="text-sm">Rating</span>
+          <input
+            type="text"
+            name="rating"
+            value={streamingMovie.rating}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
 
         <button
           type="submit"
@@ -195,7 +227,7 @@ const CreateStreamingMovie = () => {
         </button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateStreamingMovie
+export default CreateStreamingMovie;

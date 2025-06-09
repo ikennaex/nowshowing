@@ -22,7 +22,7 @@ const StreamingPage = () => {
     };
 
     fetchStreamingMovies();
-  }, []);
+  }, [fetchedStreamingMovies]);
 
   if (loading) return <Loader />;
   if (error) return <div className="text-red-500 text-center">{error}</div>;

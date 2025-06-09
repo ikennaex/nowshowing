@@ -24,7 +24,7 @@ const CurrentlyPlaying = () => {
     };
 
     fetchCinemaMovies();
-  }, []);
+  }, [fetchedCinemaMovies]);
 
   if (loading) return (<div className='mt-24'>
     <Loader />
@@ -42,7 +42,7 @@ const CurrentlyPlaying = () => {
             <div className="cursor-pointer transform hover:scale-105 transition duration-300">
               <div className="w-full aspect-[2/3] overflow-hidden rounded-md">
                 <img
-                  src={movie.image}
+                  src={movie.posterUrl}
                   alt={movie.title}
                   className="w-full h-full object-cover"
                 />

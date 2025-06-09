@@ -42,6 +42,13 @@ const CinemaMovieDetailPage = () => {
 
     }, [id]);
 
+    // duration formatter 
+    function formatDuration(minutes) {
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${hrs > 0 ? `${hrs}h ` : ''}${mins}m`;
+}
+
 
 
     if (loading) return <Loader />;
@@ -55,7 +62,7 @@ const CinemaMovieDetailPage = () => {
   return (
     <div className="p-6 text-white bg-black min-h-screen">
         <div className="max-w-4xl mx-auto flex flex-col lg:flex-row gap-6 mt-20">
-        <img src={movie.image} alt={movie.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
+        <img src={movie.posterUrl} alt={movie.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
         
         <div className="flex-1 space-y-4">
             <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
@@ -86,10 +93,8 @@ const CinemaMovieDetailPage = () => {
 
             {/* Duration (looks like a URL in your data) */}
             <p className="text-gray-300">
-            <span className="font-semibold text-white">More Info:</span>{' '}
-            <a href={movie.duration} target="_blank" rel="noopener noreferrer" className="text-customBlue underline">
-                {movie.duration}
-            </a>
+            <span className="font-semibold text-white">Duration:</span> {formatDuration(movie.duration)}
+
             </p>
             <div className="space-y-3">
             {/* Location Dropdown */}
@@ -127,6 +132,11 @@ const CinemaMovieDetailPage = () => {
                 : `Day ${movie.releaseDate}`} {/* Handle numeric fallback */}
             </p>
 
+            <p className="text-gray-300">
+              <span className="font-semibold text-white">Rating:</span>{" "}
+              {movie.rating}
+            </p>
+
             {/* Is Now Showing */}
             <p className="text-gray-300">
                 <span className="font-semibold text-white">Now Showing:</span>{' '}
@@ -158,7 +168,7 @@ const CinemaMovieDetailPage = () => {
             </p>
 
             {/* Checkout Button */}
-            <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold rounded hover:bg-customBlue transition">
+            <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">
                 Proceed to Checkout
             </button>
             </div>
