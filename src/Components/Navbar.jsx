@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Hamburger from 'hamburger-react';
-import "../styles/Navbar.css";
+import "../Styles/Navbar.css";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
