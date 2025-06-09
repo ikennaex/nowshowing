@@ -179,6 +179,7 @@ const CreateCinemaMovie = () => {
           <input
             type="text"
             name="director"
+            placeholder='Charles Inojie'
             value={cinemaMovie.director}
             onChange={handleChange}
             required
