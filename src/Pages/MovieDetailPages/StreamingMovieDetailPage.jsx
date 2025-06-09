@@ -89,7 +89,7 @@ const StreamingMovieDetailPage = () => {
             </p>
 
             {/* Checkout Button */}
-            <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-customBlue transition">
+            <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">
                 <Link to={movie.link}>
               Watch now
                 </Link>

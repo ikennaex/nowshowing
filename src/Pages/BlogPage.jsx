@@ -42,9 +42,10 @@ const BlogPage = () => {
         {fetchedBlogPosts.map((post) => (
           <Link to={`/blog/${post._id}`}>
             <div key={post.id} className="bg-zinc-900 rounded-lg p-4 shadow-lg hover:shadow-xl transition">
-                <h2 className="text-xl font-semibold text-customBlue mb-2">{post.title}</h2>
+              <img className='h-48 w-full object-cover' src= {post.img} alt="" />
+                <h2 className="text-xl font-semibold text-customBlue my-2">{post.title}</h2>
                 <p className="text-sm text-gray-400 mb-1">By {post.author}</p>
-                <p className="text-gray-300 text-sm">{post.content}</p>
+                <p className="text-gray-300 text-sm truncate">{post.content}</p>
             </div>
           </Link>
         ))}

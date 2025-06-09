@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { baseUrl } from '../baseUrl';
-import axios from 'axios';
-import Loader from '../Components/Loader';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { baseUrl } from "../baseUrl";
+import axios from "axios";
+import Loader from "../Components/Loader";
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -12,36 +12,49 @@ const BlogDetails = () => {
 
   useEffect(() => {
     const fetchBlog = async () => {
-        try {
+      try {
         const response = await axios.get(`${baseUrl}blog/${id}`);
         const blogData = response.data;
         setBlog(blogData);
-        } catch (err) {
+      } catch (err) {
         setError("Failed to fetch movie details.");
-        } finally {
+      } finally {
         setLoading(false);
-        }
+      }
     };
     fetchBlog();
-
-    }, [id]);
+  }, [id]);
 
   if (loading) return <Loader />;
   if (error) {
-  return <div className="text-white text-center p-6">{error}</div>;
+    return <div className="text-white text-center p-6">{error}</div>;
   }
 
   if (!blog) return null;
 
   return (
     <div className="p-9 text-white bg-black min-h-screen">
-      <div className="max-w-4xl mx-auto space-y-4">
-        <img src={blog.img} alt={blog.title} className="w-full lg:w-1/2 rounded-xl object-cover" />
-        <h1 className="text-3xl font-bold text-customBlue">{blog.title}</h1>
+      <div className="px-4 md:px-10 w-full md:w-2/3 lg:w-1/2 mx-auto space-y-4">
+        <img
+          src={blog.img}
+          alt={blog.title}
+          className="w-full rounded-xl object-cover max-h-[400px] md:max-h-[500px]"
+        />
+
+        <h1 className="text-2xl md:text-3xl font-bold text-customBlue">
+          {blog.title}
+        </h1>
+
         <div className="text-sm text-gray-400">
-          <span>By {blog.author}</span> | <span>{blog.date} at {blog.time}</span>
+          <span>By {blog.author}</span> |{" "}
+          <span>
+            {blog.date} at {blog.time}
+          </span>
         </div>
-        <p className="text-gray-300 whitespace-pre-line">{blog.content}</p>
+
+        <p className="text-gray-300 whitespace-pre-line leading-relaxed ">
+          {blog.content}
+        </p>
 
         <Link
           to="/blog"

@@ -14,6 +14,8 @@ const CreateYoutubeMovie = () => {
     director: '',
     cast: '',
     language: '',
+    link: '',
+    rating: '',
     posterUrl: null, // File object
   });
 
@@ -46,6 +48,8 @@ const CreateYoutubeMovie = () => {
     formData.append('duration', youtubeMovie.duration);
     formData.append('releaseDate', youtubeMovie.releaseDate);
     formData.append('director', youtubeMovie.director);
+    formData.append('rating', youtubeMovie.rating);
+    formData.append('link', youtubeMovie.link);
     formData.append('cast', JSON.stringify(youtubeMovie.cast.split(',').map(c => c.trim())));
     formData.append('language', youtubeMovie.language);
     formData.append('posterUrl', youtubeMovie.posterUrl); // File
@@ -165,6 +169,32 @@ const CreateYoutubeMovie = () => {
             type="text"
             name="language"
             value={youtubeMovie.language}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
+
+        <label>
+          <span className="text-sm">Youtube Link</span>
+          <input
+            type="text"
+            name="link"
+            placeholder='Link to youtube video'
+            value={youtubeMovie.link}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
+
+        <label>
+          <span className="text-sm">Rating</span>
+          <input
+            type="text"
+            name="rating"
+            placeholder='eg: 7.5/10'
+            value={youtubeMovie.rating}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
