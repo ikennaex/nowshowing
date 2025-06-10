@@ -204,7 +204,7 @@ const CreateYoutubeMovie = () => {
         <label>
           <span className="text-sm">Poster Image</span>
           <input
-            type="file"
+            type="file" 
             accept="image/*"
             onChange={handleImageChange}
             required
