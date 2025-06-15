@@ -44,36 +44,35 @@ const EditStreamingMovie = () => {
 
   //for fetching the movie data
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}streaming/${id}`);
-        setMovie(response.data);
-        setFormData({
-          title: '',
-          synopsis: '',
-          genre: '',
-          duration: '',
-          releaseDate: '',
-          director: '',
-          cast: '',
-          language: '',
-          location: '',
-          isNowShowing: true,
-          posterUrl: '',
-          showtimes: '',
-        });
-      } catch (err) {
-        setError("Failed to fetch movie");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchMovie = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}streaming/${id}`);
+      const movieData = response.data;
 
-    if (id) {
-      fetchMovie();
+      setMovie(movieData);
+      setFormData({
+        title: movieData.title || '',
+        synopsis: movieData.synopsis || '',
+        genre: Array.isArray(movieData.genre) ? movieData.genre.join(', ') : movieData.genre || '',
+        duration: movieData.duration || '',
+        link: movieData.link || '',
+        cast: Array.isArray(movieData.cast) ? movieData.cast.join(', ') : movieData.cast || '',
+        rating: movieData.rating || '',
+        posterUrl: movieData.posterUrl || '',
+      });
+    } catch (err) {
+      setError("Failed to fetch movie");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-  }, [id]);
+  };
+
+  if (id) {
+    fetchMovie();
+  }
+}, [id]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -202,6 +201,16 @@ const EditStreamingMovie = () => {
           value={formData.rating}
           onChange={handleChange}
           required
+          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+        />
+      </label>
+
+      <label>
+        <span className="text-sm">Poster URL</span>
+        <input
+          type="file"
+          name="posterUrl"
+          onChange={handleChange}
           className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
         />
       </label>

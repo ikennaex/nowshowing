@@ -2,17 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../../baseUrl";
-import Loader from "../../../Components/Loader";
-import { Link } from "react-router-dom";
 
 const EditYoutubeMovie = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [movie, setMovie] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
-    synopsis: '',
+    desc: '',
     genre: '',
     duration: '',
     releaseDate: '',
@@ -24,41 +21,30 @@ const EditYoutubeMovie = () => {
   });
   const [error, setError] = useState(null);
 
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === 'location') {
-    const suggestions = locations.filter((loc) =>
-        loc.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredLocations(suggestions);
-    }
-
-    setFormData({
-    ...formData,
-    [name]: value,
-    });
+    const { name, value, files } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "posterUrl" ? files[0] : value,
+    }));
   };
 
-
-  //for fetching the movie data
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await axios.get(`${baseUrl}streaming/${id}`);
-        setMovie(response.data);
+        const response = await axios.get(`${baseUrl}youtube/${id}`);
+        const movieData = response.data;
         setFormData({
-          title: '',
-          synopsis: '',
-          genre: '',
-          duration: '',
-          releaseDate: '',
-          director: '',
-          cast: '',
-          language: '',
-          isNowShowing: true,
-          posterUrl: '',
+          title: movieData.title || '',
+          desc: movieData.desc || '',
+          genre: movieData.genre ? movieData.genre.join(", ") : '',
+          duration: movieData.duration || '',
+          releaseDate: movieData.releaseDate || '',
+          director: movieData.director || '',
+          cast: movieData.cast ? movieData.cast.join(", ") : '',
+          language: movieData.language || '',
+          isNowShowing: movieData.isNowShowing ?? true,
+          posterUrl: '', 
         });
       } catch (err) {
         setError("Failed to fetch movie");
@@ -76,178 +62,151 @@ const EditYoutubeMovie = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {//  for formating the data in the correct format
-        ...formData,
-        genre: formData.genre.split(',').map((g) => g.trim()),
-        cast: formData.cast.split(',').map((c) => c.trim()),
-        releaseDate: Number(formData.releaseDate),
+    const payload = {
+      ...formData,
+      genre: formData.genre.split(',').map((g) => g.trim()),
+      cast: formData.cast.split(',').map((c) => c.trim()),
+      releaseDate: Number(formData.releaseDate),
     };
 
-    console.log(payload)
+    console.log(payload);
 
     try {
-        await axios.put(`${baseUrl}youtube/${id}`, payload);
-        alert('Movie updated successfully!');
+      await axios.put(`${baseUrl}youtube/${id}`, payload);
+      alert('Movie updated successfully!');
+      navigate("/admin/youtube"); // optional redirect
     } catch (err) {
-        console.error('Failed to update movie', err);
-        alert('Error updating movie');
+      console.error('Failed to update movie', err);
+      alert('Error updating movie');
     }
-  }
+  };
+
+  if (loading) return <div className="text-white text-center mt-10">Loading...</div>;
+  if (error) return <div className="text-red-500 text-center mt-10">{error}</div>;
 
   return (
     <div className="bg-black text-white px-4 py-8">
       <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
-      Edit YouTube Movie
+        Edit YouTube Movie
       </h2>
       <form
-      onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto grid grid-cols-1 gap-4"
+        onSubmit={handleSubmit}
+        className="max-w-2xl mx-auto grid grid-cols-1 gap-4"
       >
-    
-      <label>
+        <label>
           <span className="text-sm">Title</span>
           <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
-          <span className="text-sm">Synopsis</span>
+        <label>
+          <span className="text-sm">Desc</span>
           <textarea
-          name="synopsis"
-          value={formData.synopsis}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            name="desc"
+            value={formData.desc}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
+        <label>
           <span className="text-sm">Genre (comma-separated)</span>
           <input
-          type="text"
-          name="genre"
-          value={formData.genre}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="genre"
+            value={formData.genre}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
+        <label>
           <span className="text-sm">Duration (time or format)</span>
           <input
-          type="text"
-          name="duration"
-          value={formData.duration}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="duration"
+            value={formData.duration}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
-          <span className="text-sm">Release Date (number)</span>
+        <label>
+          <span className="text-sm">Release Date (year)</span>
           <input
-          type="number"
-          name="releaseDate"
-          value={formData.releaseDate}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="date"
+            name="releaseDate"
+            value={formData.releaseDate}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
+        <label>
           <span className="text-sm">Director</span>
           <input
-          type="text"
-          name="director"
-          value={formData.director}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="director"
+            value={formData.director}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
+        <label>
           <span className="text-sm">Cast (comma-separated)</span>
           <input
-          type="text"
-          name="cast"
-          value={formData.cast}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="cast"
+            value={formData.cast}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      <label>
+        <label>
           <span className="text-sm">Language</span>
           <input
-          type="text"
-          name="language"
-          value={formData.language}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="text"
+            name="language"
+            value={formData.language}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      {/*Poster URL field */}
-      <label>
+        <label>
           <span className="text-sm">Poster URL</span>
           <input
-          type="file"
-          name="posterUrl"
-          value={formData.posterUrl}
-          onChange={handleChange}
-          required
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+            type="file"
+            name="posterUrl"
+            onChange={handleChange}
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
-      </label>
+        </label>
 
-      {/* Location with Autosuggest */}
-      <label>
-          <span className="text-sm">Cinema Location</span>
-          <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          autoComplete="off"
-          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
-          />
-          {filteredLocations.length > 0 && (
-          <ul className="bg-gray-700 border mt-1 rounded-md">
-              {filteredLocations.map((loc) => (
-              <li
-                  key={loc.id}
-                  onClick={() => handleLocationSelect(loc.name + ", " + loc.city)}
-                  className="cursor-pointer px-2 py-1 hover:bg-gray-600"
-              >
-                  {loc.name + ", " + loc.city}
-              </li>
-              ))}
-          </ul>
-          )}
-      </label>
-
-
-      <button
+        <button
           type="submit"
           className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
-      >
+        >
           Edit Movie
-      </button>
+        </button>
       </form>
-  </div>
-  )
-}
+    </div>
+  );
+};
 
-export default EditYoutubeMovie
+export default EditYoutubeMovie;

@@ -30,36 +30,38 @@ const EditCinemaMovie = () => {
   const [error, setError] = useState(null);
 //for fetching the movie data
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}cinema/${id}`);
-        setMovie(response.data);
-        setFormData({
-          title: '',
-          synopsis: '',
-          genre: '',
-          duration: '',
-          releaseDate: '',
-          director: '',
-          cast: '',
-          language: '',
-          location: '',
-          isNowShowing: true,
-          posterUrl: '',
-          showtimes: '',
-        });
-      } catch (err) {
-        setError("Failed to fetch product");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchMovie = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}cinema/${id}`);
+      const movieData = response.data;
+      setMovie(movieData);
 
-    if (id) {
-      fetchMovie();
+      setFormData({
+        title: movieData.title || '',
+        synopsis: movieData.synopsis || '',
+        genre: Array.isArray(movieData.genre) ? movieData.genre.join(', ') : movieData.genre || '',
+        duration: movieData.duration || '',
+        releaseDate: movieData.releaseDate ? movieData.releaseDate.slice(0, 10) : '',
+        director: movieData.director || '',
+        cast: Array.isArray(movieData.cast) ? movieData.cast.join(', ') : movieData.cast || '',
+        language: movieData.language || '',
+        location: movieData.location || '',
+        isNowShowing: movieData.isNowShowing ?? true,
+        posterUrl: movieData.posterUrl || '',
+        showtimes: movieData.showtimes ? movieData.showtimes.slice(0, 10) : '',
+      });
+    } catch (err) {
+      setError("Failed to fetch movie");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-  }, [id]);
+  };
+
+  if (id) {
+    fetchMovie();
+  }
+}, [id]);
   //fetching the locaiton and formatting the data
   useEffect(() => {
     const fetchLocations = async () => {
@@ -102,11 +104,11 @@ const EditCinemaMovie = () => {
           ...formData,
           genre: formData.genre.split(',').map((g) => g.trim()),
           cast: formData.cast.split(',').map((c) => c.trim()),
-          location: formData.location?.trim() || '',
+          location: typeof formData.location === 'string'
+          ? formData.location.trim()
+          : '',
           // releaseDate: Number(formData.releaseDate),
       };
-
-      console.log(payload)
 
       try {
           await axios.put(`${baseUrl}cinema/${id}`, payload);
@@ -238,11 +240,9 @@ const EditCinemaMovie = () => {
         <label>
           <span className="text-sm">Poster URL</span>
           <input
-            type="text"
+            type="file"
             name="posterUrl"
-            value={formData.posterUrl}
             onChange={handleChange}
-            required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />
         </label>

@@ -87,7 +87,7 @@ const EditBlogPost = () => {
           type="text"
           name="img"
           placeholder="Image URL"
-          alue={post.img}
+          value={post.img}
           onChange={handleChange}
           className="w-full p-2 rounded bg-gray-800 text-white"
         />

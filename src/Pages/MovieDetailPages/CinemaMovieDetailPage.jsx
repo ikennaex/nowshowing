@@ -65,9 +65,23 @@ const CinemaMovieDetailPage = () => {
 
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-          <Link to={`/genres/`} className="text-customPurple underline">
-            {movie.genre}
-          </Link>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {Array.isArray(movie.genre)
+              ? movie.genre.map((g, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-[#1C1C1C] text-white font-semibold px-4 py-2 rounded-full text-sm"
+                  >
+                    {g}
+                  </span>
+                ))
+              : (
+                  <span className="bg-[#1C1C1C] text-white font-semibold px-4 py-2 rounded-full text-sm">
+                    {movie.genre}
+                  </span>
+                )}
+          </div>
+
           <p className="text-gray-300">{movie.synopsis}</p>
 
           {/* Director */}
@@ -77,14 +91,26 @@ const CinemaMovieDetailPage = () => {
           </p>
 
           {/* Cast */}
-          <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
-            <ul className="list-disc list-inside text-gray-300">
-              {movie.cast.map((actor, idx) => (
-                <li key={idx}>{actor}</li>
-              ))}
-            </ul>
+          <div className="mt-4">
+          <h2 className="text-lg font-semibold text-white mb-2">Cast</h2>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {Array.isArray(movie.cast)
+              ? movie.cast.map((actor, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-[#1C1C1C] text-white font-semibold px-4 py-2 rounded-full text-sm"
+                  >
+                    {actor}
+                  </span>
+                ))
+              : (
+                  <span className="bg-[#1C1C1C] text-white font-semibold px-4 py-2 rounded-full text-sm">
+                    {movie.cast}
+                  </span>
+                )}
           </div>
+          </div>
+
 
           {/* Language */}
           <p className="text-gray-300">
@@ -98,30 +124,20 @@ const CinemaMovieDetailPage = () => {
             {formatDuration(movie.duration)}
           </p>
           <div className="space-y-3">
-            {/* Location Dropdown */}
+            {/* Location String Display */}
             <div>
               <label className="block text-sm mb-1">Location</label>
-              <select
-                className="w-full p-2 rounded bg-zinc-900 text-white"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              >
-                <option>{movie.location}</option>
-              </select>
+              <p className="w-full p-2 rounded bg-zinc-900 text-white">{movie.location}</p>
             </div>
 
-            {/* Showtime Dropdown */}
+            {/* Showtimes String Display */}
             <div>
-              <label className="block text-sm mb-1">Showtime</label>
-              <select
-                className="w-full p-2 rounded bg-zinc-900 text-white"
-                value={showtime}
-                onChange={(e) => setShowtime(e.target.value)}
-              >
-                {movie.showtimes.map((time, idx) => (
-                  <option key={idx}>{time}</option>
-                ))}
-              </select>
+              <label className="block text-sm mb-1">Showtimes</label>
+              <p className="w-full p-2 rounded bg-zinc-900 text-white">
+                {Array.isArray(movie.showtimes)
+                  ? movie.showtimes.join(", ")
+                  : movie.showtimes}
+              </p>
             </div>
 
             {/* Release Date (converted from number or timestamp if needed) */}
@@ -145,9 +161,9 @@ const CinemaMovieDetailPage = () => {
             </p>
 
             {/* Seat Dropdown */}
-            <div>
+            {/* <div>
               <label className="block text-sm mb-1">Seat</label>
-              {/* <select
+              <select
                 className="w-full p-2 rounded bg-zinc-900 text-white"
                 value={seat}
                 onChange={(e) => setSeat(e.target.value)}
@@ -159,16 +175,16 @@ const CinemaMovieDetailPage = () => {
                         {s.seat}
                     </option>
                     ))}
-                </select> */}
+                </select>
             </div>
 
-            {/* Ticket Price */}
+            
             <p className="text-lg text-white">
               Ticket Price:{" "}
               <span className="text-customBlue font-semibold">
                 ₦{movie.ticketPrice}
               </span>
-            </p>
+            </p> */}
 
             {/* Checkout Button */}
             <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">

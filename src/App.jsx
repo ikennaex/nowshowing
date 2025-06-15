@@ -24,6 +24,7 @@ import YouTubeMovieDetailPage from './Pages/MovieDetailPages/YouTubeMovieDetailP
 import CreateBlogPost from './Pages/Admin/CreateBlogPost'
 import EditBlogPost from './Pages/Admin/Edit/EditBlogPost'
 import AdminBlogPage from './Pages/Admin/AdminBlogPage'
+import ContactPage from './Pages/ContactPage'
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
         <Route path="/admin/editpost/:id" element={<EditBlogPost />} />
         <Route path="/youtube" element={<YoutubePage />} />
         <Route path="/admin/blogposts" element={<AdminBlogPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       </div>
       <Footer/>

@@ -1,16 +1,30 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { baseUrl } from '../../baseUrl';
 
 
 const AdminMovies = ({ movies }) => {
 
   const navigate = useNavigate();
 
-  const onDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this movie?')) {
-      handleDelete(id);
+  // Delete function
+  const handleDelete = async (type, id) => {
+    try {
+      await axios.delete(`${baseUrl}${type}/${id}`);
+      alert('Movie deleted');
+    } catch (err) {
+      console.error('Delete failed:', err);
+      alert('Failed to delete movie');
     }
+    console.log(`${baseUrl}${type}/${id}`)
   };
+
+  const onDelete = (type, id) => {
+    if (window.confirm('Are you sure you want to delete this movie?')) {
+      handleDelete(type, id);
+    }
+  }
 
   return (
     <div className="px-4 py-8 bg-black text-white">
@@ -31,8 +45,9 @@ const AdminMovies = ({ movies }) => {
               />
             </div>
             <h4 className="text-lg font-semibold mt-2 text-center">{movie.title}</h4>
-            <p className="text-sm text-gray-400 text-center mb-4">{movie.body}</p>
-
+            <p className="text-sm text-white m-3 bg-gray-600 px-3 py-1 rounded-full capitalize">
+              {movie.type}
+            </p>
             <div className="flex gap-2">
               <button
                 onClick={() => navigate(`/admin/edit${movie.type}movie/${movie._id}`)}
@@ -41,7 +56,7 @@ const AdminMovies = ({ movies }) => {
                 Edit
               </button>
               <button
-                onClick={() => onDelete(movie.id)}
+                onClick={() => onDelete(movie.type, movie._id)}
                 className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-xl text-sm"
               >
                 Delete

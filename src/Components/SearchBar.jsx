@@ -3,7 +3,7 @@ import { CiSearch } from "react-icons/ci";
 
 const SearchBar = ({ search, setSearch, suggestions = [] }) => {
   return (
-    <div className="w-full px-4 md:px-8 relative z-50 mt-50 mt-10">
+    <div className="w-full px-4 md:px-8 z-50 mt-50 mt-10">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center"

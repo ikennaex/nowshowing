@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaYoutube, FaTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -19,9 +20,7 @@ const Footer = () => {
             <h3 className="font-semibold mb-3">Profile</h3>
             <ul className="space-y-2">
               <li>FAQ's</li>
-              <li>Pricing Plans</li>
-              <li>Gossip/News</li>
-              <li>Order Tracking</li>
+              <Link to='/blog'><li>Gossip/News</li></Link>
             </ul>
           </div>
 
@@ -38,8 +37,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-3">Customer</h3>
             <ul className="space-y-2">
-              <li>Self help</li>
-              <li>Contact us</li>
+              <Link to='/contact'><li>Contact us</li></Link>
             </ul>
           </div>
 
