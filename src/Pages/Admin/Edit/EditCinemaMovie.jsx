@@ -28,6 +28,8 @@ const EditCinemaMovie = () => {
     showtimes: '',
   });
   const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
 //for fetching the movie data
   useEffect(() => {
   const fetchMovie = async () => {
@@ -99,7 +101,7 @@ const EditCinemaMovie = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-
+      setSubmitting(true); // Show loader during submission
       const payload = {//  for formating the data in the correct format
           ...formData,
           genre: formData.genre.split(',').map((g) => g.trim()),
@@ -113,6 +115,7 @@ const EditCinemaMovie = () => {
       try {
           await axios.put(`${baseUrl}cinema/${id}`, payload);
           alert('Movie updated successfully!');
+          navigate('/admin');
       } catch (err) {
           console.error('Failed to update movie', err);
           alert('Error updating movie');
@@ -120,7 +123,7 @@ const EditCinemaMovie = () => {
       
   }
 
-  if (loading) return <Loader />;
+  if (loading || submitting) return <Loader />;
   if (error) {
   return <div className="text-white text-center p-6">{error}</div>;
   }
@@ -250,7 +253,7 @@ const EditCinemaMovie = () => {
         <label>
           <span className="text-sm">Showtimes</span>
           <input
-            type="date"
+            type="time"
             name="showtimes"
             value={formData.showtimes}
             onChange={handleChange}

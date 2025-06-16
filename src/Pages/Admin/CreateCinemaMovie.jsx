@@ -76,16 +76,21 @@ const CreateCinemaMovie = () => {
       // Append filed to form data 
       formData.append("title", cinemaMovie.title);
       formData.append("synopsis", cinemaMovie.synopsis);
-      formData.append("genre", JSON.stringify(cinemaMovie.genre.split(',').map(g => g.trim())));
+      formData.append("genre", cinemaMovie.genre);
       formData.append("duration", cinemaMovie.duration);
       formData.append("releaseDate", cinemaMovie.releaseDate);
       formData.append("director", cinemaMovie.director);
-      formData.append("cast", JSON.stringify(cinemaMovie.cast.split(',').map(c => c.trim())));
+      formData.append("cast", cinemaMovie.cast);
       formData.append("language", cinemaMovie.language);
       formData.append("location", cinemaMovie.location?.trim() || '');
       formData.append("posterUrl", cinemaMovie.posterUrl); // file
       formData.append("showtimes", cinemaMovie.showtimes);
-      formData.append("isNowShowing", cinemaMovie.isNowShowing);
+      formData.append("isNowShowing", cinemaMovie.isNowShowing.toString());;
+
+      console.log("Form Data being sent:");
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
 
     try {
         await axios.post(`${baseUrl}cinema`, formData, {
@@ -94,8 +99,10 @@ const CreateCinemaMovie = () => {
         alert('Movie created successfully!');
     } catch (err) {
         console.error('Failed to create movie', err);
+        
         alert('Error creating movie');
     }
+    console.log(formData)
     };
 
   return (

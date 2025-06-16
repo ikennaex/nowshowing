@@ -54,9 +54,8 @@ const StreamingMovieDetailPage = () => {
 
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
-          <Link to={`/genres/`} className="text-customPurple underline">
-            {movie.genre}
-          </Link>
+          
+          <p>{movie.genre}</p>
           <p className="text-gray-300">{movie.synopsis}</p>
 
           {/* Cast */}

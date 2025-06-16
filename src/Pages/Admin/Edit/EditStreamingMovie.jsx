@@ -23,6 +23,7 @@ const EditStreamingMovie = () => {
     posterUrl: '',
   });
   const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
 
   const handleChange = (e) => {
@@ -76,14 +77,13 @@ const EditStreamingMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSubmitting(true);
     const payload = {//  for formating the data in the correct format
         ...formData,
         genre: formData.genre.split(',').map((g) => g.trim()),
         cast: formData.cast.split(',').map((c) => c.trim()),
     };
 
-    console.log(payload)
 
     try {
         await axios.put(`${baseUrl}streaming/${id}`, payload);
@@ -93,6 +93,8 @@ const EditStreamingMovie = () => {
         alert('Error updating movie');
     }
   }
+
+  if (loading || submitting) return <Loader />;
 
   return (
     <div className="bg-black text-white px-4 py-8">

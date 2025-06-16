@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../../baseUrl";
+import Loader from "../../../Components/Loader";
 
 const EditYoutubeMovie = () => {
   const { id } = useParams();
@@ -20,6 +21,7 @@ const EditYoutubeMovie = () => {
     posterUrl: '',
   });
   const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -61,7 +63,7 @@ const EditYoutubeMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSubmitting(true);
     const payload = {
       ...formData,
       genre: formData.genre.split(',').map((g) => g.trim()),
@@ -81,7 +83,7 @@ const EditYoutubeMovie = () => {
     }
   };
 
-  if (loading) return <div className="text-white text-center mt-10">Loading...</div>;
+  if (loading || submitting) return <Loader />;
   if (error) return <div className="text-red-500 text-center mt-10">{error}</div>;
 
   return (

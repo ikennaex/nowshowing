@@ -16,6 +16,7 @@ const EditBlogPost = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     // Fetch post details
     useEffect(() => {
@@ -42,18 +43,22 @@ const EditBlogPost = () => {
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
+      e.preventDefault();
+      setSubmitting(true);
+      setError('');
+      try {
         await axios.put(`${baseUrl}blog/${id}`, post);
-        alert('Post updated successfully');
-        navigate('/admin/blog');
-        } catch (err) {
+        navigate('/admin/blog'); // Navigate only after success
+      } catch (err) {
         setError('Failed to update post');
         alert('Failed to update post');
-        }
+      } finally {
+        setSubmitting(false); // Always hide loader after
+      }
     };
 
-    if (loading) return <Loader />;
+
+    if (loading || submitting) return <Loader />;
 
   return (
     <div className="bg-black text-white min-h-screen p-6">

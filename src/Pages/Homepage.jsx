@@ -16,7 +16,6 @@ const Homepage = () => {
       try {
         const response = await axios.get(`${baseUrl}cinema`);
         setFetchedCinemaMovies(response.data);
-        console.log(response.data);
       } catch (err) {
         setError('Failed to fetch movies');
         console.error(err);

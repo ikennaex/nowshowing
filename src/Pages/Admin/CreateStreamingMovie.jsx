@@ -28,7 +28,6 @@ const CreateStreamingMovie = () => {
       [name]: value,
     });
 
-    console.log(streamingMovie)
   };
 
   // Handle Image Upload
