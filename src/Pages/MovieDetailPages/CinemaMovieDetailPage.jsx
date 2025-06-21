@@ -66,7 +66,16 @@ const CinemaMovieDetailPage = () => {
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
           
-            {movie.genre}
+           <div className="flex flex-wrap gap-2 mt-2">
+            {(Array.isArray(movie.genre) ? movie.genre : (movie.genre || '').split(',')).map((g, index) => (
+              <span
+                key={index}
+                className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+              >
+                {g.trim()}
+              </span>
+            ))}
+          </div>
           
           <p className="text-gray-300">{movie.synopsis}</p>
 
@@ -79,11 +88,16 @@ const CinemaMovieDetailPage = () => {
           {/* Cast */}
           <div>
             <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
-            <ul className="list-disc list-inside text-gray-300">
-              {movie.cast.map((actor, idx) => (
-                <p key={idx}>{actor}</p>
-              ))}
-            </ul>
+            <div className="flex flex-wrap gap-2 mt-2">
+            {(Array.isArray(movie.cast) ? movie.cast : (movie.cast || '').split(',')).map((g, index) => (
+              <span
+                key={index}
+                className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+              >
+                {g.trim()}
+              </span>
+            ))}
+          </div>
           </div>
 
           {/* Language */}

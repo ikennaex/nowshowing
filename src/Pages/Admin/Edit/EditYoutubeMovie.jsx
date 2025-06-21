@@ -76,7 +76,7 @@ const EditYoutubeMovie = () => {
     try {
       await axios.put(`${baseUrl}youtube/${id}`, payload);
       alert('Movie updated successfully!');
-      navigate("/admin/youtube"); // optional redirect
+      navigate('/admin'); // optional redirect
     } catch (err) {
       console.error('Failed to update movie', err);
       alert('Error updating movie');

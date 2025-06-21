@@ -88,6 +88,7 @@ const EditStreamingMovie = () => {
     try {
         await axios.put(`${baseUrl}streaming/${id}`, payload);
         alert('Movie updated successfully!');
+        navigate('/admin');
     } catch (err) {
         console.error('Failed to update movie', err);
         alert('Error updating movie');

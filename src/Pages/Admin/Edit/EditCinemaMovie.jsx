@@ -270,6 +270,7 @@ const EditCinemaMovie = () => {
             name="location"
             value={formData.location}
             onChange={handleChange}
+            required
             autoComplete="off"
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
           />

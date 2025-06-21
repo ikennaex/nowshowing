@@ -69,34 +69,52 @@ const CreateCinemaMovie = () => {
     };
 
     const handleSubmit = async (e) => {
-      e.preventDefault()
+      e.preventDefault();
+
       const formData = new FormData();
 
-      
-      // Append filed to form data 
+      // Convert strings to actual arrays
+      const genreArray = cinemaMovie.genre.split(',').map(g => g.trim());
+      const castArray = cinemaMovie.cast.split(',').map(c => c.trim());
+      const showtimesArray = [cinemaMovie.showtimes]; // wrap in array!
+
       formData.append("title", cinemaMovie.title);
       formData.append("synopsis", cinemaMovie.synopsis);
-      formData.append("genre", JSON.stringify(cinemaMovie.genre.split(',').map(g => g.trim())));
-      formData.append("duration", cinemaMovie.duration);
+      formData.append("duration", parseInt(cinemaMovie.duration));
       formData.append("releaseDate", cinemaMovie.releaseDate);
       formData.append("director", cinemaMovie.director);
-      formData.append("cast", JSON.stringify(cinemaMovie.cast.split(',').map(c => c.trim())));
       formData.append("language", cinemaMovie.language);
       formData.append("location", cinemaMovie.location?.trim() || '');
-      formData.append("posterUrl", cinemaMovie.posterUrl); // file
-      formData.append("showtimes", cinemaMovie.showtimes);
-      formData.append("isNowShowing", cinemaMovie.isNowShowing);
+      formData.append("posterUrl", cinemaMovie.posterUrl);
+      formData.append("isNowShowing", cinemaMovie.isNowShowing ? "true" : "false");
 
-    try {
+      // Append arrays correctly
+      genreArray.forEach(g => formData.append("genre[]", g));
+      castArray.forEach(c => formData.append("cast[]", c));
+      showtimesArray.forEach(s => formData.append("showtimes[]", s));
+
+      try {
         await axios.post(`${baseUrl}cinema`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert('Movie created successfully!');
-    } catch (err) {
-        console.error('Failed to create movie', err);
+      } catch (err) {
+        if (err.response) {
+          console.error('Server error:', err.response.status, err.response.data);
+        } else {
+          console.error('Request error:', err.message);
+        }
         alert('Error creating movie');
-    }
+      }
+
+      // For debugging
+      formData.forEach((value, key) => {
+        console.log(`${key}:`, value);
+      });
     };
+
+
+   
 
   return (
     <div className="bg-black text-white px-4 py-8">

@@ -45,31 +45,34 @@ const CreateStreamingMovie = () => {
 
     const formData = new FormData();
 
-    // Append filed to form data
+    // Append individual fields
     formData.append("title", streamingMovie.title);
     formData.append("synopsis", streamingMovie.synopsis);
-    formData.append(
-      "genre",
-      JSON.stringify(streamingMovie.genre.split(",").map((g) => g.trim()))
-    );
     formData.append("duration", streamingMovie.duration);
-    formData.append("link", streamingMovie.releaseDate);
+    formData.append("link", streamingMovie.link);
     formData.append("director", streamingMovie.director);
     formData.append("releaseDate", streamingMovie.releaseDate);
-    formData.append(
-      "cast",
-      JSON.stringify(streamingMovie.cast.split(",").map((c) => c.trim()))
-    );
     formData.append("rating", streamingMovie.rating);
-    formData.append("location", streamingMovie.location?.trim() || "");
-    formData.append("posterUrl", streamingMovie.posterUrl); // file
+    formData.append("posterUrl", streamingMovie.posterUrl);
+
+    // Properly format and append genre as array (multiple values)
+    streamingMovie.genre
+      .split(",")
+      .map((g) => g.trim())
+      .forEach((g) => formData.append("genre", g));
+
+    // Properly format and append cast as array (multiple values)
+    streamingMovie.cast
+      .split(",")
+      .map((c) => c.trim())
+      .forEach((c) => formData.append("cast", c));
 
     try {
       await axios.post(`${baseUrl}streaming`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Movie created successfully!");
-      navigate("/streaming")
+      navigate("/streaming");
     } catch (err) {
       console.error("Failed to create movie", err);
       alert("Error creating movie");

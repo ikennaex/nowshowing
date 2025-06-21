@@ -42,28 +42,39 @@ const CreateYoutubeMovie = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', youtubeMovie.title);
-    formData.append('desc', youtubeMovie.desc);
-    formData.append('genre', JSON.stringify(youtubeMovie.genre.split(',').map(g => g.trim())));
-    formData.append('duration', youtubeMovie.duration);
-    formData.append('releaseDate', youtubeMovie.releaseDate);
-    formData.append('director', youtubeMovie.director);
-    formData.append('rating', youtubeMovie.rating);
-    formData.append('link', youtubeMovie.link);
-    formData.append('cast', JSON.stringify(youtubeMovie.cast.split(',').map(c => c.trim())));
-    formData.append('language', youtubeMovie.language);
-    formData.append('posterUrl', youtubeMovie.posterUrl); // File
+
+    formData.append("title", youtubeMovie.title);
+    formData.append("desc", youtubeMovie.desc);
+    formData.append("duration", youtubeMovie.duration);
+    formData.append("releaseDate", youtubeMovie.releaseDate);
+    formData.append("director", youtubeMovie.director);
+    formData.append("rating", youtubeMovie.rating);
+    formData.append("link", youtubeMovie.link);
+    formData.append("language", youtubeMovie.language);
+    formData.append("posterUrl", youtubeMovie.posterUrl);
+
+    // Append each genre as an individual formData entry
+    youtubeMovie.genre
+      .split(",")
+      .map((g) => g.trim())
+      .forEach((g) => formData.append("genre", g));
+
+    // Append each cast member individually
+    youtubeMovie.cast
+      .split(",")
+      .map((c) => c.trim())
+      .forEach((c) => formData.append("cast", c));
 
     try {
       await axios.post(`${baseUrl}youtube`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
-      alert('Movie created successfully!');
+      alert("Movie created successfully!");
     } catch (err) {
-      console.error('Failed to create movie', err);
-      alert('Error creating movie');
+      console.error("Failed to create movie", err);
+      alert("Error creating movie");
     }
   };
 
