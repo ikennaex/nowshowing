@@ -55,15 +55,18 @@ const YouTubeMovieDetailPage = () => {
 
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
+          <div>
+            <h2 className="text-lg font-semibold text-white mt-4">Genre</h2>
           <div className="flex flex-wrap gap-2 mt-2">
             {(Array.isArray(movie.genre) ? movie.genre : (movie.genre || '').split(',')).map((g, index) => (
               <span
                 key={index}
-                className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
               >
                 {g.trim()}
               </span>
             ))}
+          </div>
           </div>
           <p className="text-gray-300">{movie.synopsis}</p>
 
@@ -74,7 +77,7 @@ const YouTubeMovieDetailPage = () => {
             {(Array.isArray(movie.cast) ? movie.cast : (movie.cast || '').split(',')).map((g, index) => (
               <span
                 key={index}
-                className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
               >
                 {g.trim()}
               </span>
