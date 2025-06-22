@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
-import { Link } from 'react-router-dom';
 import AdminNav from '../../Components/Admin/AdminNav';
 
 const CreateCinemaMovie = () => {
 
     const [locations, setLocations] = useState([]);
     const [filteredLocations, setFilteredLocations] = useState([]);
-    const [movieType, setMovieType] = useState('');
     const [preview, setPreview] = useState(null);
     const [cinemaMovie, setCinemaMovie] = useState({
     title: '',

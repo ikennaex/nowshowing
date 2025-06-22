@@ -50,13 +50,13 @@ const YouTubeMovieDetailPage = () => {
         <img
           src={movie.posterUrl}
           alt={movie.title}
-          className="w-full lg:w-1/2 rounded-xl object-cover"
+          className="w-full lg:w-1/2 rounded-xl object-contain h-full"
         />
 
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Genre</h2>
+            <h2 className="text-lg font-semibold text-white mt-4 uppercase text-sm">Genre</h2>
           <div className="flex flex-wrap gap-2 mt-2">
             {(Array.isArray(movie.genre) ? movie.genre : (movie.genre || '').split(',')).map((g, index) => (
               <span
@@ -72,7 +72,7 @@ const YouTubeMovieDetailPage = () => {
 
           {/* Cast */}
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
+            <h2 className="font-semibold text-white mt-4 uppercase text-sm">Cast</h2>
             <div className="flex flex-wrap gap-2 mt-2">
             {(Array.isArray(movie.cast) ? movie.cast : (movie.cast || '').split(',')).map((g, index) => (
               <span
@@ -87,12 +87,12 @@ const YouTubeMovieDetailPage = () => {
 
           {/* Duration (looks like a URL in your data) */}
           <p className="text-gray-300">
-            <span className="font-semibold text-white">More Info:</span> {formatDuration(movie.duration)}
+            <span className="font-semibold text-white uppercase text-sm">Duration:</span> {formatDuration(movie.duration)}
           </p>
           <div className="space-y-3">
             {/* Release Date (converted from number or timestamp if needed) */}
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Release Date:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">Release Date:</span>{" "}
               {isNaN(movie.updatedAt)
                 ? new Date(movie.updatedAt).toLocaleDateString()
                 : `Day ${movie.updatedAt}`}{" "}

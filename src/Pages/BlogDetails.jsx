@@ -33,7 +33,7 @@ const BlogDetails = () => {
   if (!blog) return null;
 
   return (
-    <div className="p-9 text-white bg-black min-h-screen">
+    <div className="lg:py-9 py-9 px-2 text-white bg-black min-h-screen">
       <div className="px-4 md:px-10 w-full md:w-2/3 lg:w-1/2 mx-auto space-y-4">
         <img
           src={blog.img}
@@ -41,7 +41,7 @@ const BlogDetails = () => {
           className="w-full rounded-xl object-cover max-h-[400px] md:max-h-[500px]"
         />
 
-        <h1 className="text-2xl md:text-3xl font-bold text-customBlue">
+        <h1 className="text-2xl md:text-3xl font-bold text-white">
           {blog.title}
         </h1>
 

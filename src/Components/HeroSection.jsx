@@ -6,6 +6,7 @@ import { EffectCards, Autoplay } from "swiper/modules";
 import { baseUrl } from "../baseUrl";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import "../Styles/HeroSection.css"
 
 // Animation variant
 const fadeUpVariants = {
@@ -52,7 +53,7 @@ const HeroSection = () => {
     <div className="hero-section relative w-full h-[120vh] overflow-hidden mt-0">
       {/* Background Image */}
       <div
-        className="hero-bg absolute inset-0 bg-cover bg-center bg-no-repeat brightness-10 z-0"
+        className="hero-bg absolute inset-0 bg-cover bg-center shadow-bg bg-no-repeat brightness-10 z-0"
         style={{ backgroundImage: `url(${currentMovie.posterUrl})` }}
       ></div>
 

@@ -55,44 +55,61 @@ const StreamingMovieDetailPage = () => {
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Genre</h2>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {(Array.isArray(movie.genre) ? movie.genre : (movie.genre || '').split(',')).map((g, index) => (
-              <span
-                key={index}
-                className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
-              >
-                {g.trim()}
-              </span>
-            ))}
-          </div>
+            <h2 className="font-semibold text-white mt-4 uppercase text-sm">
+              Genre
+            </h2>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {(Array.isArray(movie.genre)
+                ? movie.genre
+                : (movie.genre || "").split(",")
+              ).map((g, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
+                >
+                  {g.trim()}
+                </span>
+              ))}
+            </div>
           </div>
 
+          <h2 className="font-semibold text-white mt-4 uppercase text-sm">
+            Synopsis
+          </h2>
           <p className="text-gray-300">{movie.synopsis}</p>
 
           {/* Cast */}
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
+            <h2 className="text-lg font-semibold text-white mt-4 uppercase text-sm">
+              Cast
+            </h2>
             <div className="flex flex-wrap gap-2 mt-2">
-            {(Array.isArray(movie.cast) ? movie.cast : (movie.cast || '').split(',')).map((g, index) => (
-              <span
-                key={index}
-                className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
-              >
-                {g.trim()}
-              </span>
-            ))}
-          </div>
+              {(Array.isArray(movie.cast)
+                ? movie.cast
+                : (movie.cast || "").split(",")
+              ).map((g, index) => (
+                <span
+                  key={index}
+                  className="bg-gray-700 text-white px-4 py-3 rounded-full text-m"
+                >
+                  {g.trim()}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Duration (looks like a URL in your data) */}
           <p className="text-gray-300">
-            <span className="font-semibold text-white">Duration:</span>{" "}
+            <span className="font-semibold text-white uppercase text-sm">
+              Duration:
+            </span>{" "}
             {formatDuration(movie.duration)}
           </p>
           <div className="space-y-3">
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Release Date:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">
+                Release Date:
+              </span>{" "}
               {isNaN(movie.updatedAt)
                 ? new Date(movie.updatedAt).toLocaleDateString()
                 : `Day ${movie.updatedAt}`}{" "}
@@ -100,15 +117,15 @@ const StreamingMovieDetailPage = () => {
             </p>
 
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Rating:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">
+                Rating:
+              </span>{" "}
               {movie.rating}
             </p>
 
             {/* Checkout Button */}
             <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">
-                <Link to={movie.link}>
-              Watch now
-                </Link>
+              <Link to={movie.link}>Watch now</Link>
             </button>
             {console.log(movie.link)}
           </div>
