@@ -72,6 +72,7 @@ const CreateYoutubeMovie = () => {
         },
       });
       alert("Movie created successfully!");
+      navigate('/admin');
     } catch (err) {
       console.error("Failed to create movie", err);
       alert("Error creating movie");

@@ -96,6 +96,7 @@ const CreateCinemaMovie = () => {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert('Movie created successfully!');
+        navigate('/admin');
       } catch (err) {
         if (err.response) {
           console.error('Server error:', err.response.status, err.response.data);

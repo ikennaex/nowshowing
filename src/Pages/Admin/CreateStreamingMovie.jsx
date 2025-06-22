@@ -72,7 +72,7 @@ const CreateStreamingMovie = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("Movie created successfully!");
-      navigate("/streaming");
+      navigate("/admin");
     } catch (err) {
       console.error("Failed to create movie", err);
       alert("Error creating movie");

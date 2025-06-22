@@ -1,30 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
+import Loader from '../Loader';
 
-
-const AdminMovies = ({ movies }) => {
-
+const AdminMovies = () => {
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+
+  // Fetch all movies from all categories
+  const fetchMovies = async () => {
+    try {
+      const [cinema, streaming, youtube] = await Promise.all([
+        axios.get(`${baseUrl}cinema`),
+        axios.get(`${baseUrl}streaming`),
+        axios.get(`${baseUrl}youtube`)
+      ]);
+
+      const allMovies = [
+        ...cinema.data.map(m => ({ ...m, type: 'cinema' })),
+        ...streaming.data.map(m => ({ ...m, type: 'streaming' })),
+        ...youtube.data.map(m => ({ ...m, type: 'youtube' }))
+      ];
+
+      setMovies(allMovies);
+    } catch (err) {
+      console.error("Error fetching movies:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch on mount
+  useEffect(() => {
+    fetchMovies();
+  }, []);
 
   // Delete function
   const handleDelete = async (type, id) => {
     try {
       await axios.delete(`${baseUrl}${type}/${id}`);
       alert('Movie deleted');
+      fetchMovies(); // Re-fetch to update UI
     } catch (err) {
       console.error('Delete failed:', err);
       alert('Failed to delete movie');
+    } finally {
+      setLoading(false);
     }
-    console.log(`${baseUrl}${type}/${id}`)
   };
 
   const onDelete = (type, id) => {
     if (window.confirm('Are you sure you want to delete this movie?')) {
       handleDelete(type, id);
     }
-  }
+  };
+  if (loading) return <Loader />;
 
   return (
     <div className="px-4 py-8 bg-black text-white">
@@ -66,7 +99,7 @@ const AdminMovies = ({ movies }) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminMovies
+export default AdminMovies;
