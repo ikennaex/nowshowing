@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaYoutube, FaTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { logo } from '../imports';
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
         
         {/* Top Section: Logo and App Buttons */}
         <div className="space-y-4">
-          <img src="/images/logo.png" alt="Nowshowing" className="w-32" />
+          <img src= {logo} alt="Nowshowing" className="w-32" />
           
         </div>
 

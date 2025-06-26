@@ -7,6 +7,7 @@ import { baseUrl } from "../baseUrl";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import "../Styles/HeroSection.css"
+import { Link } from "react-router-dom";
 
 // Animation variant
 const fadeUpVariants = {
@@ -90,6 +91,9 @@ const HeroSection = () => {
               {currentMovie.synopsis}
             </motion.p>
 
+            {console.log(currentMovie)}
+
+            <Link to = {`/cinemamovie/${currentMovie._id}`} >
             <motion.button
               variants={fadeUpVariants}
               custom={2}
@@ -97,6 +101,7 @@ const HeroSection = () => {
             >
               Movie details
             </motion.button>
+            </Link>
           </motion.div>
         </AnimatePresence>
 

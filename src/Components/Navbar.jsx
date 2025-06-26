@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Hamburger from 'hamburger-react';
 import "../Styles/Navbar.css";
+import { logo } from '../imports';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex-shrink-0">
           <NavLink exact="true" to="/">
-            <img width="150px" src="/images/logo.png" alt="logo" />
+            <img width="150px" src= {logo} alt="logo" />
           </NavLink>
         </div>
 

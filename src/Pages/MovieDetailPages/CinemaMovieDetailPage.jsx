@@ -66,7 +66,7 @@ const CinemaMovieDetailPage = () => {
         <div className="flex-1 space-y-4">
           <h1 className="text-3xl font-bold text-white">{movie.title}</h1>
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Genre</h2>
+            <h2 className="font-semibold text-white mt-4 uppercase text-sm">Genre</h2>
            <div className="flex flex-wrap gap-2 mt-2">
             
             {(Array.isArray(movie.genre) ? movie.genre : (movie.genre || '').split(',')).map((g, index) => (
@@ -84,13 +84,13 @@ const CinemaMovieDetailPage = () => {
 
           {/* Director */}
           <p className="text-gray-300">
-            <span className="font-semibold text-white">Director:</span>{" "}
+            <span className="font-semibold text-white uppercase text-sm">Director:</span>{" "}
             {movie.director}
           </p>
 
           {/* Cast */}
           <div>
-            <h2 className="text-lg font-semibold text-white mt-4">Cast</h2>
+            <h2 className="font-semibold text-white mt-4 uppercase text-sm">Cast</h2>
             <div className="flex flex-wrap gap-2 mt-2">
             {(Array.isArray(movie.cast) ? movie.cast : (movie.cast || '').split(',')).map((g, index) => (
               <span
@@ -105,19 +105,19 @@ const CinemaMovieDetailPage = () => {
 
           {/* Language */}
           <p className="text-gray-300">
-            <span className="font-semibold text-white">Language:</span>{" "}
+            <span className="font-semibold text-white uppercase text-sm">Language:</span>{" "}
             {movie.language}
           </p>
 
           {/* Duration (looks like a URL in your data) */}
           <p className="text-gray-300">
-            <span className="font-semibold text-white">Duration:</span>{" "}
+            <span className="font-semibold text-white uppercase text-sm">Duration:</span>{" "}
             {formatDuration(movie.duration)}
           </p>
           <div className="space-y-3">
             {/* Location Dropdown */}
             <div>
-              <label className="block text-sm mb-1">Location</label>
+              <label className="block font-semibold mb-1 uppercase text-sm">Location</label>
               <div className="w-full p-2 rounded bg-zinc-900 text-white">
                 {movie.location}
               </div>
@@ -132,7 +132,7 @@ const CinemaMovieDetailPage = () => {
 
             {/* Release Date (converted from number or timestamp if needed) */}
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Release Date:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">Release Date:</span>{" "}
               {isNaN(movie.releaseDate)
                 ? new Date(movie.releaseDate).toLocaleDateString()
                 : `Day ${movie.releaseDate}`}{" "}
@@ -140,13 +140,13 @@ const CinemaMovieDetailPage = () => {
             </p>
 
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Rating:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">Rating:</span>{" "}
               {movie.rating}
             </p>
 
             {/* Is Now Showing */}
             <p className="text-gray-300">
-              <span className="font-semibold text-white">Now Showing:</span>{" "}
+              <span className="font-semibold text-white uppercase text-sm">Now Showing:</span>{" "}
               {movie.isNowShowing ? "Yes" : "No"}
             </p>
 
