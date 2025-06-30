@@ -10,7 +10,7 @@ const Footer = () => {
         
         {/* Top Section: Logo and App Buttons */}
         <div className="space-y-4">
-          <img src= {logo} alt="Nowshowing" className="w-32" />
+          <img width="120px" src= {logo} alt="Nowshowing" />
           
         </div>
 

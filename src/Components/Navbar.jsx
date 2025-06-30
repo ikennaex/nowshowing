@@ -18,7 +18,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex-shrink-0">
           <NavLink exact="true" to="/">
-            <img width="150px" src= {logo} alt="logo" />
+            <img width="120px" src= {logo} alt="logo" />
           </NavLink>
         </div>
 
