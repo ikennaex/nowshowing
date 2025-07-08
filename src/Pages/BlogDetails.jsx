@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { baseUrl } from "../baseUrl";
 import axios from "axios";
 import Loader from "../Components/Loader";
+import { compareAsc, format } from "date-fns";
+import { ArrowLeft } from "lucide-react";
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -48,7 +50,7 @@ const BlogDetails = () => {
         <div className="text-sm text-gray-400">
           <span>By {blog.author}</span> |{" "}
           <span>
-            {blog.date} at {blog.time}
+            {blog.date} {format(new Date(blog.createdAt), "do MMMM, yyyy")}
           </span>
         </div>
 
@@ -58,8 +60,9 @@ const BlogDetails = () => {
 
         <Link
           to="/blog"
-          className="inline-block mt-6 px-4 py-2 bg-customPurple text-black font-semibold rounded hover:bg-customBlue transition"
+          className="inline-flex items-center gap-2 mt-6 px-4 py-2 text-customBlue border border-customBlue rounded-md font-semibold transition duration-200 hover:bg-customBlue hover:text-white"
         >
+          <ArrowLeft className="w-4 h-4" />
           Back to Blog
         </Link>
       </div>

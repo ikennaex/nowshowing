@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
 import AdminNav from '../../Components/Admin/AdminNav';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCinemaMovie = () => {
-
-    const [locations, setLocations] = useState([]);
-    const [filteredLocations, setFilteredLocations] = useState([]);
+  const navigate = useNavigate();
     const [preview, setPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [cinemaMovie, setCinemaMovie] = useState({
     title: '',
     synopsis: '',
@@ -17,44 +17,18 @@ const CreateCinemaMovie = () => {
     director: '',
     cast: '',
     language: '',
-    location: '',
+    // location: '',
     isNowShowing: true,
     posterUrl: null, // 
-    showtimes: '',
+    // showtimes: '',
     });
 
-    useEffect(() => {
-    const fetchLocations = async () => {
-        try {
-        const res = await axios.get(`${baseUrl}cinemalocations`);
-        setLocations(res.data);
-        } catch (err) {
-        console.error('Failed to fetch locations', err);
-        }
-    };
-    fetchLocations();
-    }, []);
-
-    
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (name === 'location') {
-        const suggestions = locations.filter((loc) =>
-            loc.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setFilteredLocations(suggestions);
-        }
-
         setCinemaMovie({
         ...cinemaMovie,
         [name]: value,
         });
-    };
-
-    const handleLocationSelect = (name) => {
-    setCinemaMovie({ ...cinemaMovie, location: name });
-    setFilteredLocations([]);
     };
 
     // Handle Image Upload
@@ -74,29 +48,29 @@ const CreateCinemaMovie = () => {
       // Convert strings to actual arrays
       const genreArray = cinemaMovie.genre.split(',').map(g => g.trim());
       const castArray = cinemaMovie.cast.split(',').map(c => c.trim());
-      const showtimesArray = [cinemaMovie.showtimes]; // wrap in array!
+      const languageArray = cinemaMovie.language.split(',').map(l => l.trim());
 
       formData.append("title", cinemaMovie.title);
       formData.append("synopsis", cinemaMovie.synopsis);
       formData.append("duration", parseInt(cinemaMovie.duration));
       formData.append("releaseDate", cinemaMovie.releaseDate);
       formData.append("director", cinemaMovie.director);
-      formData.append("language", cinemaMovie.language);
-      formData.append("location", cinemaMovie.location?.trim() || '');
       formData.append("posterUrl", cinemaMovie.posterUrl);
       formData.append("isNowShowing", cinemaMovie.isNowShowing ? "true" : "false");
 
       // Append arrays correctly
       genreArray.forEach(g => formData.append("genre[]", g));
       castArray.forEach(c => formData.append("cast[]", c));
-      showtimesArray.forEach(s => formData.append("showtimes[]", s));
+      languageArray.forEach(l => formData.append("language[]", l));
 
       try {
-        await axios.post(`${baseUrl}cinema`, formData, {
+        setLoading(true);
+        const response = await axios.post(`${baseUrl}cinema`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
+        const cinemaMovieId = response.data._id; // Assuming the response contains the created movie ID
         alert('Movie created successfully!');
-        navigate('/admin');
+        navigate(`/admin/setshowtime/${cinemaMovieId}`);
       } catch (err) {
         if (err.response) {
           console.error('Server error:', err.response.status, err.response.data);
@@ -104,6 +78,8 @@ const CreateCinemaMovie = () => {
           console.error('Request error:', err.message);
         }
         alert('Error creating movie');
+      } finally {
+        setLoading(false);
       }
 
       // For debugging
@@ -217,7 +193,7 @@ const CreateCinemaMovie = () => {
         </label>
 
         <label>
-          <span className="text-sm">Language</span>
+          <span className="text-sm">Language(s) (comma separated)</span>
           <input
             type="text"
             placeholder='eg: English'
@@ -243,51 +219,11 @@ const CreateCinemaMovie = () => {
           {preview && <img src={preview} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded-lg" />}
         </label>
 
-        <label>
-          <span className="text-sm">Showtimes</span>
-          <input
-            type="time"
-            name="showtimes"
-            value={cinemaMovie.showtimes}
-            onChange={handleChange}
-            required
-            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
-          />
-        </label>
-
-        {/* Location with Autosuggest */}
-        <label>
-          <span className="text-sm">Cinema Location</span>
-          <input
-            type="text"
-            placeholder='eg: Filmworld Cinema, Lekki'
-            name="location"
-            value={cinemaMovie.location}
-            onChange={handleChange}
-            autoComplete="off"
-            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
-          />
-          {filteredLocations.length > 0 && (
-            <ul className="bg-gray-700 border mt-1 rounded-md">
-              {filteredLocations.map((loc) => (
-                <li
-                  key={loc.id}
-                  onClick={() => handleLocationSelect(loc.name + ", " + loc.city)}
-                  className="cursor-pointer px-2 py-1 hover:bg-gray-600"
-                >
-                  {loc.name + ", " + loc.city}
-                </li>
-              ))}
-            </ul>
-          )}
-        </label>
-
-
         <button
           type="submit"
           className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
         >
-          Create Movie
+          {loading ? 'Creating Cinema Movie...' : 'Create Movie'}
         </button>
       </form>
     </div>

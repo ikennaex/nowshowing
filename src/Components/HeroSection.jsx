@@ -91,8 +91,6 @@ const HeroSection = () => {
               {currentMovie.synopsis}
             </motion.p>
 
-            {console.log(currentMovie)}
-
             <Link to = {`/cinemamovie/${currentMovie._id}`} >
             <motion.button
               variants={fadeUpVariants}

@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminBlog = ({ posts = [], handleDelete }) => {
   const navigate = useNavigate();
 
   const onDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
+    if (window.confirm("Are you sure you want to delete this post?")) {
       handleDelete(id);
     }
   };
@@ -13,7 +13,7 @@ const AdminBlog = ({ posts = [], handleDelete }) => {
   return (
     <div className="px-4 py-8 bg-black text-white min-h-screen">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
-        {posts.length > 0 ? 'Latest Posts' : 'No posts found'}
+        {posts.length > 0 ? "Latest Posts" : "No posts found"}
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -25,7 +25,7 @@ const AdminBlog = ({ posts = [], handleDelete }) => {
             {/* Image */}
             <div className="w-full aspect-[3/2] overflow-hidden rounded-md mb-3">
               <img
-                src={post.img || '/placeholder.jpg'} // fallback image
+                src={post.img || "/placeholder.jpg"} // fallback image
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
@@ -38,8 +38,11 @@ const AdminBlog = ({ posts = [], handleDelete }) => {
 
             {/* Author and Content */}
             <p className="text-sm text-gray-400 mb-1">By {post.author}</p>
-            <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-
+            <p className="text-sm text-gray-300 mb-3">
+              {post.content.length > 120
+                ? post.content.slice(0, 120) + "..."
+                : post.content}
+            </p>
             {/* Actions */}
             <div className="flex space-x-2">
               <button

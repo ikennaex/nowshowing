@@ -25,6 +25,7 @@ import CreateBlogPost from './Pages/Admin/CreateBlogPost'
 import EditBlogPost from './Pages/Admin/Edit/EditBlogPost'
 import AdminBlogPage from './Pages/Admin/AdminBlogPage'
 import ContactPage from './Pages/ContactPage'
+import SetShowtime from './Pages/Admin/SetShowtime'
 
 const App = () => {
   return (
@@ -41,19 +42,22 @@ const App = () => {
         <Route path="/youtubemovie/:id" element={<YouTubeMovieDetailPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/youtube" element={<YoutubePage />} />
+        <Route path="/streaming" element={<StreamingPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+
+        {/* ADMIN ROUTES */}
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/createcinemamovie" element={<CreateCinemaMovie />} />
+        <Route path="/admin/setshowtime/:id" element={<SetShowtime />} />
         <Route path="/admin/createstreamingmovie" element={<CreateStreamingMovie />} />
         <Route path="/admin/createyoutubemovie" element={<CreateYoutubeMovie />} />
         <Route path="/admin/createblogpost" element={<CreateBlogPost />} />
-        <Route path="/streaming" element={<StreamingPage />} />
         <Route path="/admin/editcinemamovie/:id" element={<EditCinemaMovie />} />
         <Route path="/admin/editstreamingmovie/:id" element={<EditStreamingMovie />} />
         <Route path="/admin/edityoutubemovie/:id" element={<EditYoutubeMovie />} />
         <Route path="/admin/editpost/:id" element={<EditBlogPost />} />
-        <Route path="/youtube" element={<YoutubePage />} />
         <Route path="/admin/blogposts" element={<AdminBlogPage />} />
-        <Route path="/contact" element={<ContactPage />} />
       </Routes>
       </div>
       <Footer/>

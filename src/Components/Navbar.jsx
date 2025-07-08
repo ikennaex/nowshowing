@@ -47,8 +47,9 @@ const Navbar = () => {
       <div className={`mobile-menu-wrapper ${open ? 'open' : ''} md:hidden`}>
         <ul className="flex flex-col items-center bg-white/90 backdrop-blur-md py-1 space-y-4 overflow-y-auto z-40">
           <li><NavLink exact="true" to="/buy-tickets" onClick={handleLinkClick} className="mobile-link">BUY TICKETS</NavLink></li>
-          <li><NavLink to="/trending" onClick={handleLinkClick} className="mobile-link">TRENDING</NavLink></li>
+          <li><NavLink to="/streaming" onClick={handleLinkClick} className="mobile-link">STREAMING</NavLink></li>
           <li><NavLink to="/blog" onClick={handleLinkClick} className="mobile-link">BLOG</NavLink></li>
+          <li><NavLink to="/youtube" onClick={handleLinkClick} className="mobile-link">YOUTUBE</NavLink></li>
           <li><NavLink to="/contact" onClick={handleLinkClick} className="mobile-link">CONTACT</NavLink></li>
           <li><NavLink to="/login" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li>
           <li><NavLink to="/admin" onClick={handleLinkClick} className="mobile-link">Admin</NavLink></li>
