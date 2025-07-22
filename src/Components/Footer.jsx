@@ -46,17 +46,19 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-3">Legal</h3>
             <ul className="space-y-2">
+              <Link to= "/privacypolicy">
               <li>Privacy policy</li>
+              </Link>
             </ul>
           </div>
         </div>
 
         {/* Social Icons */}
         <div className="flex justify-center gap-4 mt-6">
-          <FaYoutube className="text-xl" />
-          <FaTwitter className="text-xl" />
-          <FaFacebookF className="text-xl" />
+          {/* <FaMail className="text-xl" /> */}
+          <Link target='_blank' to="https://www.instagram.com/nowshowing.ng/">
           <FaInstagram className="text-xl" />
+          </Link>
         </div>
       </div>
     </footer>

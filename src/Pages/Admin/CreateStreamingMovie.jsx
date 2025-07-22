@@ -14,6 +14,7 @@ const CreateStreamingMovie = () => {
     duration: "",
     director: "",
     link: "",
+    streamingPlatform: "",
     cast: "",
     rating: "",
     posterUrl: null,
@@ -53,6 +54,7 @@ const CreateStreamingMovie = () => {
     formData.append("director", streamingMovie.director);
     formData.append("releaseDate", streamingMovie.releaseDate);
     formData.append("rating", streamingMovie.rating);
+    formData.append("streamingPlatform", streamingMovie.streamingPlatform);
     formData.append("posterUrl", streamingMovie.posterUrl);
 
     // Properly format and append genre as array (multiple values)
@@ -202,7 +204,21 @@ const CreateStreamingMovie = () => {
           <input
             type="text"
             name="link"
+            placeholder="Movie link"
             value={streamingMovie.link}
+            onChange={handleChange}
+            required
+            className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+          />
+        </label>
+
+        <label>
+          <span className="text-sm">Streaming Platform</span>
+          <input
+            type="text"
+            placeholder="eg: Netflix, Hulu"
+            name="streamingPlatform"
+            value={streamingMovie.streamingPlatform}
             onChange={handleChange}
             required
             className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"

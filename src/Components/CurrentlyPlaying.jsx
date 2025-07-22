@@ -28,7 +28,7 @@ const CurrentlyPlaying = ({ movies = [], loading, error }) => {
           .slice()
           .reverse()
           .map((movie) => (
-            <Link to={`/cinemamovie/${movie._id}`} key={movie._id}>
+            <Link to={`/${movie.type}movie/${movie._id}`} key={movie._id}>
               <div className="cursor-pointer transform hover:scale-105 transition duration-300">
                 <div className="relative w-full aspect-[2/3] overflow-hidden rounded-md">
                   <img
@@ -48,10 +48,13 @@ const CurrentlyPlaying = ({ movies = [], loading, error }) => {
                     </span>
                   )}
                 </div>
-                
+
                 <h4 className="text-lg font-semibold mt-2 text-center">
                   {movie.title}
                 </h4>
+                <p className="text-xs text-gray-400 text-center capitalize mt-1">
+                  {movie.type} movie
+                </p>
                 {/* <p className="text-sm text-gray-400 text-center">{movie.movie.body}</p> */}
               </div>
             </Link>

@@ -26,6 +26,7 @@ import EditBlogPost from './Pages/Admin/Edit/EditBlogPost'
 import AdminBlogPage from './Pages/Admin/AdminBlogPage'
 import ContactPage from './Pages/ContactPage'
 import SetShowtime from './Pages/Admin/SetShowtime'
+import Privacypolicy from './Pages/Privacypolicy'
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/youtube" element={<YoutubePage />} />
         <Route path="/streaming" element={<StreamingPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacypolicy" element={<Privacypolicy />} />
 
         {/* ADMIN ROUTES */}
         <Route path="/admin" element={<AdminPage />} />

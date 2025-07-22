@@ -39,7 +39,7 @@ const BlogPage = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {fetchedBlogPosts.map((post) => (
+        {fetchedBlogPosts.slice().reverse().map((post) => (
           <Link to={`/blog/${post._id}`}>
             <div key={post.id} className="bg-zinc-900 rounded-lg p-4 shadow-lg hover:shadow-xl transition">
               <img className='h-48 w-full object-cover' src= {post.img} alt="" />

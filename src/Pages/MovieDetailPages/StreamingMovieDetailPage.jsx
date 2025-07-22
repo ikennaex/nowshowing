@@ -123,9 +123,16 @@ const StreamingMovieDetailPage = () => {
               {movie.rating}
             </p>
 
+            <p className="text-gray-300">
+              <span className="font-semibold text-white uppercase text-sm">
+                Streaming Platform:
+              </span>{" "}
+              {movie.streamingPlatform}
+            </p>
+
             {/* Checkout Button */}
             <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">
-              <Link to={movie.link}>Watch now</Link>
+              <Link target="_blank" to={movie.link}>Watch now</Link>
             </button>
             {console.log(movie.link)}
           </div>

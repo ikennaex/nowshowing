@@ -6,7 +6,7 @@ import { EffectCards, Autoplay } from "swiper/modules";
 import { baseUrl } from "../baseUrl";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import "../Styles/HeroSection.css"
+import "../Styles/HeroSection.css";
 import { Link } from "react-router-dom";
 
 // Animation variant
@@ -23,16 +23,35 @@ const fadeUpVariants = {
   }),
 };
 
+// Shuffle function
+const shuffleArray = (array) => {
+  return array
+    .map((item) => ({ item, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ item }) => item);
+};
+
 const HeroSection = () => {
-  const [fetchedCinemaMovies, setFetchedCinemaMovies] = useState([]);
+  const [fetchedMovies, setFetchedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const fetchCinemaMovies = async () => {
+    const fetchAllMovies = async () => {
       try {
-        const response = await axios.get(`${baseUrl}cinema`);
-        setFetchedCinemaMovies(response.data);
+        const [cinemaRes, streamingRes, youtubeRes] = await Promise.all([
+          axios.get(`${baseUrl}cinema`),
+          axios.get(`${baseUrl}streaming`),
+          axios.get(`${baseUrl}youtube`),
+        ]);
+
+        const combined = shuffleArray([
+          ...cinemaRes.data.map((movie) => ({ ...movie, type: "cinema" })),
+          ...streamingRes.data.map((movie) => ({ ...movie, type: "streaming" })),
+          ...youtubeRes.data.map((movie) => ({ ...movie, type: "youtube" })),
+        ]);
+
+        setFetchedMovies(combined);
         setActiveIndex(0);
       } catch (err) {
         console.error("Failed to fetch movies:", err);
@@ -41,14 +60,14 @@ const HeroSection = () => {
       }
     };
 
-    fetchCinemaMovies();
+    fetchAllMovies();
   }, []);
 
-  if (loading || !fetchedCinemaMovies.length) {
+  if (loading || !fetchedMovies.length) {
     return <div className="text-white text-center">Loading...</div>;
   }
 
-  const currentMovie = fetchedCinemaMovies[activeIndex];
+  const currentMovie = fetchedMovies[activeIndex];
 
   return (
     <div className="hero-section relative w-full h-[120vh] overflow-hidden mt-0">
@@ -62,27 +81,31 @@ const HeroSection = () => {
       <div className="absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#0b0b0b] to-transparent z-10 pointer-events-none"></div>
 
       {/* Content */}
-      <div className="relative z-20 flex flex-col md:flex-row items-center justify-center h-full px-6 gap-4 md:gap-6">
-  
+      <div className="relative z-20 mt-28 lg:mt-4 flex flex-col md:flex-row items-center justify-center h-full px-6 gap-4 md:gap-6">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentMovie._id} // makes it reanimate 
+            key={currentMovie._id}
             className="hero-overlay w-full md:w-1/2 text-white text-center md:text-left min-h-[70vh] flex flex-col justify-center faded-edges"
             initial="hidden"
             animate="visible"
             exit="hidden"
             variants={fadeUpVariants}
           >
-            {/* framer motion for h1  */}
+            {/* Movie type badge */}
+            <span className="inline-block text-xs uppercase bg-white text-black px-2 py-1 rounded-full font-semibold mb-2 w-fit mx-auto md:mx-0">
+              {currentMovie.type} movie
+            </span>
+
+            {/* Movie title */}
             <motion.h1
               variants={fadeUpVariants}
               custom={0}
-              className="text-6xl md:text-7xl font-bold mb-4"
+              className="text-4xl hyphens-auto lg:overflow-hidden overflow-auto md:text-7xl font-bold mb-4"
             >
               {currentMovie.title}
             </motion.h1>
 
-            {/* framer motion for p tag */}
+            {/* Movie synopsis */}
             <motion.p
               variants={fadeUpVariants}
               custom={1}
@@ -91,14 +114,15 @@ const HeroSection = () => {
               {currentMovie.synopsis}
             </motion.p>
 
-            <Link to = {`/cinemamovie/${currentMovie._id}`} >
-            <motion.button
-              variants={fadeUpVariants}
-              custom={2}
-              className="mt-6 w-fit bg-white text-black font-semibold py-2 px-6 mx-auto lg:mx-0 rounded-xl hover:bg-black hover:text-white transition"
-            >
-              Movie details
-            </motion.button>
+            {/* Movie details button */}
+            <Link to={`/${currentMovie.type}movie/${currentMovie._id}`}>
+              <motion.button
+                variants={fadeUpVariants}
+                custom={2}
+                className="mt-6 w-fit bg-white text-black font-semibold py-2 px-6 mx-auto lg:mx-0 rounded-xl hover:bg-black hover:text-white transition"
+              >
+                Movie details
+              </motion.button>
             </Link>
           </motion.div>
         </AnimatePresence>
@@ -118,7 +142,7 @@ const HeroSection = () => {
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             className="mySwiper"
           >
-            {fetchedCinemaMovies.map((movie, idx) => (
+            {fetchedMovies.map((movie, idx) => (
               <SwiperSlide key={idx}>
                 <img
                   src={movie.posterUrl}

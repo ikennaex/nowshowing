@@ -20,6 +20,7 @@ const EditStreamingMovie = () => {
     link: '',
     cast: '',
     rating: '',
+    streamingPlatform: '',
     posterUrl: '',
   });
   const [error, setError] = useState(null);
@@ -59,6 +60,7 @@ const EditStreamingMovie = () => {
         link: movieData.link || '',
         cast: Array.isArray(movieData.cast) ? movieData.cast.join(', ') : movieData.cast || '',
         rating: movieData.rating || '',
+        streamingPlatform: movieData.streamingPlatform || '',
         posterUrl: movieData.posterUrl || '',
       });
     } catch (err) {
@@ -202,6 +204,19 @@ const EditStreamingMovie = () => {
           type="text"
           name="rating"
           value={formData.rating}
+          onChange={handleChange}
+          required
+          className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
+        />
+      </label>
+
+      <label>
+        <span className="text-sm">Streaming Platform</span>
+        <input
+          type="text"
+          name="streamingPlatform"
+          placeholder="eg: Netflix, Hulu"
+          value={formData.streamingPlatform}
           onChange={handleChange}
           required
           className="w-full p-2 rounded-md bg-gray-800 border border-gray-600 mt-1"
