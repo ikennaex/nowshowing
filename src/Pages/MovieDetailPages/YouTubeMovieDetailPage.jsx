@@ -125,7 +125,7 @@ const YouTubeMovieDetailPage = () => {
             {/* Checkout Button */}
             <Link target="_blank" to={movie.link}>
               <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold hover:bg-purple-500 transition">
-                Watch in YouTube
+                Watch on YouTube
               </button>
             </Link>
           </div>
@@ -136,7 +136,7 @@ const YouTubeMovieDetailPage = () => {
       {movie.link && (
         <div className="mt-14 lg:mt-36">
           <h2 className="text-white text-xl lg:text-center font-semibold mb-2">
-            Watch in Now Showing 
+            Watch on Now Showing 
           </h2>
           <div className="w-full aspect-video">
             <iframe

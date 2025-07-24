@@ -27,6 +27,7 @@ import AdminBlogPage from './Pages/Admin/AdminBlogPage'
 import ContactPage from './Pages/ContactPage'
 import SetShowtime from './Pages/Admin/SetShowtime'
 import Privacypolicy from './Pages/Privacypolicy'
+import CinemaPage from './Pages/CinemaPage'
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="/youtube" element={<YoutubePage />} />
         <Route path="/streaming" element={<StreamingPage />} />
+        <Route path="/cinema" element={<CinemaPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacypolicy" element={<Privacypolicy />} />
 
