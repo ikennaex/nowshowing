@@ -39,16 +39,18 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchAllMovies = async () => {
       try {
-        const [cinemaRes, streamingRes, youtubeRes] = await Promise.all([
+        const [cinemaRes, streamingRes, youtubeRes, blogRes] = await Promise.all([
           axios.get(`${baseUrl}cinema`),
           axios.get(`${baseUrl}streaming`),
           axios.get(`${baseUrl}youtube`),
+          axios.get(`${baseUrl}blog`),
         ]);
 
         const combined = shuffleArray([
           ...cinemaRes.data.map((movie) => ({ ...movie, type: "cinema" })),
           ...streamingRes.data.map((movie) => ({ ...movie, type: "streaming" })),
           ...youtubeRes.data.map((movie) => ({ ...movie, type: "youtube" })),
+          ...blogRes.data.map((blog) => ({ ...blog, type: "blog" })),
         ]);
 
         setFetchedMovies(combined);
@@ -74,7 +76,7 @@ const HeroSection = () => {
       {/* Background Image */}
       <div
         className="hero-bg absolute inset-0 bg-cover bg-center shadow-bg bg-no-repeat brightness-10 z-0"
-        style={{ backgroundImage: `url(${currentMovie.posterUrl})` }}
+        style={{ backgroundImage: `url(${currentMovie.type === "blog" ? currentMovie.img : currentMovie.posterUrl})` }}
       ></div>
 
       {/* Gradient overlay */}
@@ -93,7 +95,8 @@ const HeroSection = () => {
           >
             {/* Movie type badge */}
             <span className="inline-block text-xs uppercase bg-white text-black px-2 py-1 rounded-full font-semibold mb-2 w-fit mx-auto md:mx-0">
-              {currentMovie.type} movie
+              {currentMovie.type} {currentMovie.type === "blog" ? "post" : "movie"}
+              {console.log(currentMovie)}
             </span>
 
             {/* Movie title */}
@@ -115,13 +118,13 @@ const HeroSection = () => {
             </motion.p>
 
             {/* Movie details button */}
-            <Link to={`/${currentMovie.type}movie/${currentMovie._id}`}>
+            <Link to={`/${currentMovie.type === "blog" ? "blog" : "movie"}/${currentMovie._id}`}>
               <motion.button
                 variants={fadeUpVariants}
                 custom={2}
                 className="mt-6 w-fit bg-white text-black font-semibold py-2 px-6 mx-auto lg:mx-0 rounded-xl hover:bg-black hover:text-white transition"
               >
-                Movie details
+                {currentMovie.type === "blog" ? "Read Post" : "Movie Details"}
               </motion.button>
             </Link>
           </motion.div>
@@ -145,7 +148,7 @@ const HeroSection = () => {
             {fetchedMovies.map((movie, idx) => (
               <SwiperSlide key={idx}>
                 <img
-                  src={movie.posterUrl}
+                  src={movie.type === "blog" ? movie.img : movie.posterUrl}
                   alt={movie.title}
                   className="w-full h-[60vh] md:h-[70vh] object-cover rounded-xl"
                 />

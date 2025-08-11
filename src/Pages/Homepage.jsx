@@ -4,6 +4,7 @@ import CurrentlyPlaying from "../Components/CurrentlyPlaying";
 import SearchBar from "../Components/SearchBar";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
+import AdvertDisplay from "../Components/AdvertDisplay";
 
 const Homepage = () => {
   const [search, setSearch] = useState("");
@@ -60,6 +61,7 @@ const filteredMovies = useMemo(() => {
   return (
     <div>
       <HeroSection />
+      <AdvertDisplay />
       <SearchBar search={search} setSearch={setSearch} />
       <CurrentlyPlaying
         movies={filteredMovies}

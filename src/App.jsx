@@ -28,6 +28,8 @@ import ContactPage from './Pages/ContactPage'
 import SetShowtime from './Pages/Admin/SetShowtime'
 import Privacypolicy from './Pages/Privacypolicy'
 import CinemaPage from './Pages/CinemaPage'
+import CreateAd from './Pages/Admin/CreateAd'
+import ViewRunningAds from './Pages/Admin/ViewRunningAds'
 
 const App = () => {
   return (
@@ -62,6 +64,8 @@ const App = () => {
         <Route path="/admin/edityoutubemovie/:id" element={<EditYoutubeMovie />} />
         <Route path="/admin/editpost/:id" element={<EditBlogPost />} />
         <Route path="/admin/blogposts" element={<AdminBlogPage />} />
+        <Route path="/admin/createad" element={<CreateAd />} />
+        <Route path="/admin/viewrunningads" element={<ViewRunningAds />} />
       </Routes>
       </div>
       <Footer/>

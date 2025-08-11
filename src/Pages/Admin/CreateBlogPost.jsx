@@ -20,7 +20,6 @@ const CreateBlogPost = () => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(blogDetails)
   };
 
   // Handle Image Upload
@@ -32,7 +31,7 @@ const CreateBlogPost = () => {
     }
   };
 
-  // Append filed to form data
+  // Append files to form data
   const formData = new FormData();
 
   formData.append("title", blogDetails.title);
