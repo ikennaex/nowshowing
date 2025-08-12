@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
 import Loader from "../Components/Loader";
+import AdvertDisplay from "../Components/AdvertDisplay";
 
 const StreamingPage = () => {
   const [fetchedStreamingMovies, setFetchedStreamingMovies] = useState([]);
@@ -36,6 +37,7 @@ const StreamingPage = () => {
 
   return (
     <div className="p-9">
+      <AdvertDisplay />
       <h2 className="text-2xl font-semibold mb-4">Streaming Now</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {fetchedStreamingMovies.slice().reverse().map((movie, index) => (

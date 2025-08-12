@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../baseUrl';
 import Loader from '../Components/Loader';
+import AdvertDisplay from '../Components/AdvertDisplay';
 
 
 const BlogPage = () => {
@@ -34,6 +35,7 @@ const BlogPage = () => {
 
   return (
     <div className="bg-black text-white px-9 py-10">
+      <AdvertDisplay />
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
         {fetchedBlogPosts.length > 0 ? 'Latest Posts' : error || 'No posts found'}
       </h1>

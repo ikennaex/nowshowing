@@ -118,7 +118,7 @@ const HeroSection = () => {
             </motion.p>
 
             {/* Movie details button */}
-            <Link to={`/${currentMovie.type === "blog" ? "blog" : "movie"}/${currentMovie._id}`}>
+            <Link to={`/${currentMovie.type === "blog" ? "blog" : currentMovie.type + "movie"}/${currentMovie._id}`}>
               <motion.button
                 variants={fadeUpVariants}
                 custom={2}

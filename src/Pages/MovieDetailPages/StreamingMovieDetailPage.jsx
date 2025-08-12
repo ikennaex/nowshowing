@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { baseUrl } from "../../baseUrl";
 import axios from "axios";
 import Loader from "../../Components/Loader";
+import AdvertDisplay from "../../Components/AdvertDisplay";
 
 const StreamingMovieDetailPage = () => {
   const { id } = useParams();
@@ -138,6 +139,7 @@ const StreamingMovieDetailPage = () => {
           </div>
         </div>
       </div>
+      <AdvertDisplay />
     </div>
   );
 };

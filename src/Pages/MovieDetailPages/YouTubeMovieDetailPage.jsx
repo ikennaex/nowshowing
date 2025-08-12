@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { baseUrl } from "../../baseUrl";
 import axios from "axios";
 import Loader from "../../Components/Loader";
+import AdvertDisplay from "../../Components/AdvertDisplay";
 
 const YouTubeMovieDetailPage = () => {
   const { id } = useParams();
@@ -131,6 +132,8 @@ const YouTubeMovieDetailPage = () => {
           </div>
         </div>
       </div>
+
+      <AdvertDisplay />
 
       {/* embedded video */}
       {movie.link && (

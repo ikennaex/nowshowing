@@ -35,24 +35,28 @@ console.log(ads)
   const currentAd = activeAds[currentAdIndex];
 
   return (
-    <div className="overflow-x-auto space-x-4 pt-10 p-4">
+    currentAd && activeAds.length > 0 ? (
+      <div className="overflow-x-auto space-x-4 pt-10 p-4">
         <p className="italic text-gray-600">ad</p>
-    <div className="flex justify-center ">
-        <a
-          href={currentAd?.link}
-          key={currentAd?.id}
-          className="flex-shrink-0 w-48" // adjust width per item
-        >
-          <div className="bg-gray-700 rounded-lg overflow-hidden">
-            <img
-              src={currentAd?.media}
-              alt={currentAd?.title}
-              className="w-full h-40 object-cover"
-            />
-          </div>
-        </a>
-    </div>
-    </div>
+        <div className="flex justify-center ">
+          <a
+            href={currentAd?.link}
+            key={currentAd?.id}
+            className="flex-shrink-0 w-48" // adjust width per item
+          >
+            <div className="bg-gray-700 rounded-lg overflow-hidden">
+              <img
+                src={currentAd?.media}
+                alt={currentAd?.title}
+                className="w-full h-40 object-cover"
+              />
+            </div>
+          </a>
+        </div>
+      </div>
+    ) : (
+      ""
+    )
   );
 };
 

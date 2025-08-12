@@ -5,6 +5,7 @@ import axios from "axios";
 import Loader from "../../Components/Loader";
 import { format } from "date-fns";
 import { ClockIcon, MapPinIcon } from "lucide-react";
+import AdvertDisplay from "../../Components/AdvertDisplay";
 
 const CinemaMovieDetailPage = () => {
   const { id } = useParams();
@@ -69,6 +70,7 @@ const CinemaMovieDetailPage = () => {
 
   return (
     <div className="p-6 text-white bg-black min-h-screen">
+      <AdvertDisplay />
       <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-6 mt-20">
         <img
           src={movie.posterUrl}
@@ -90,7 +92,7 @@ const CinemaMovieDetailPage = () => {
                 <span
                   key={index}
                   className="bg-gray-700 text-white px-4 py-2 rounded-full text-m"
-                >
+                  >
                   {g.trim()}
                 </span>
               ))}
@@ -123,8 +125,8 @@ const CinemaMovieDetailPage = () => {
                 : (movie.cast || "").split(",")
               ).map((g, index) => (
                 <span
-                  key={index}
-                  className="bg-gray-700 text-white px-4 py-2 rounded-full text-m"
+                key={index}
+                className="bg-gray-700 text-white px-4 py-2 rounded-full text-m"
                 >
                   {g.trim()}
                 </span>
@@ -192,10 +194,10 @@ const CinemaMovieDetailPage = () => {
 
             {/* <p className="text-gray-300">
               <span className="font-semibold text-white uppercase text-sm">
-                Rating:
+              Rating:
               </span>{" "}
               {movie.rating}
-            </p> */}
+              </p> */}
 
             {/* Is Now Showing */}
             <p className="text-gray-300">
@@ -209,26 +211,26 @@ const CinemaMovieDetailPage = () => {
             {/* <div>
               <label className="block text-sm mb-1">Seat</label>
               <select
-                className="w-full p-2 rounded bg-zinc-900 text-white"
-                value={seat}
-                onChange={(e) => setSeat(e.target.value)}
-                >
-                {movie.seats
-                    .filter((s) => s.available)
+              className="w-full p-2 rounded bg-zinc-900 text-white"
+              value={seat}
+              onChange={(e) => setSeat(e.target.value)}
+              >
+              {movie.seats
+              .filter((s) => s.available)
                     .map((s, idx) => (
-                    <option key={idx} value={s.seat}>
+                      <option key={idx} value={s.seat}>
                         {s.seat}
                     </option>
                     ))}
                 </select>
-            </div>
-
-            <p className="text-lg text-white">
-              Ticket Price:{" "}
-              <span className="text-customBlue font-semibold">
+                </div>
+                
+                <p className="text-lg text-white">
+                Ticket Price:{" "}
+                <span className="text-customBlue font-semibold">
                 ₦{movie.ticketPrice}
-              </span>
-            </p> */}
+                </span>
+                </p> */}
 
             {/* Checkout Button */}
             <button className="rounded-xl w-full py-3 mt-4 bg-customPurple text-black font-semibold  hover:bg-purple-500 transition">
@@ -237,6 +239,7 @@ const CinemaMovieDetailPage = () => {
           </div>
         </div>
       </div>
+<AdvertDisplay />
     </div>
   );
 };
