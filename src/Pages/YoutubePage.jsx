@@ -35,9 +35,9 @@ const YoutubePage = () => {
   if (loading) return <Loader />;
   if (error) return <div className="text-red-500 text-center">{error}</div>;
   return (
-    <div className="p-9">
+    <div className="p-1">
       <AdvertDisplay />
-      <h2 className="text-2xl font-semibold mb-4">Youtube Movies</h2>
+      <h2 className="text-2xl font-semibold mb-4 mt-5">Youtube Movies</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {fetchedYoutubeMovies.slice().reverse().map((movie, index) => (
           <Link to={`/youtubemovie/${movie._id}`} key={index} className="group">

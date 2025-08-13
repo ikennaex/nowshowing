@@ -34,9 +34,9 @@ const BlogPage = () => {
 
 
   return (
-    <div className="bg-black text-white px-9 py-10">
+    <div className="bg-black text-white p-9 py-1">
       <AdvertDisplay />
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">
+      <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 mt-5">
         {fetchedBlogPosts.length > 0 ? 'Latest Posts' : error || 'No posts found'}
       </h1>
 
