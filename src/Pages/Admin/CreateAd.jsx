@@ -14,18 +14,14 @@ const CreateAd = () => {
   });
 
   const handleChange = (e) => {
-    setLoading(true);
     try {
       setAdDetails((prev) => ({
         ...prev,
         [e.target.name]: e.target.value,
       }));
-      setLoading(false);
     } catch (err) {
       console.error("Error creating ad:", err);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   // Handle Image Upload
@@ -48,6 +44,7 @@ const CreateAd = () => {
     formData.append("media", adDetails.media);
 
     try {
+      setLoading(true);
       await axios.post(`${baseUrl}advert`, formData);
       alert("Ad created successfully!");
       setAdDetails({ title: "", link: "", media: null });
@@ -55,6 +52,8 @@ const CreateAd = () => {
     } catch (err) {
       setError("Failed to create ad");
       console.error(err);
+    }  finally {
+      setLoading(false);
     }
   };
 
@@ -64,6 +63,8 @@ const CreateAd = () => {
         <h1 className="text-2xl font-semibold mb-6 text-center">
           Create an Ad
         </h1>
+
+        <p className="text-sm text-gray-400 py-4">For best clarity and no pixelation, you should upload ads that are at least <span className="font-semibold text-customBlue">320×160px</span>   (ratio: 2:1).</p>
 
         <form action="" onSubmit={handleSubmit} className="space-y-4">
           <div>

@@ -5,20 +5,20 @@ import { baseUrl } from "../baseUrl";
 const AdvertDisplay = () => {
   const [ads, setAds] = useState([]);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
-  
+
   useEffect(() => {
-      const fetchAds = async () => {
-          try {
+    const fetchAds = async () => {
+      try {
         const response = await axios.get(`${baseUrl}advert`);
         setAds(response.data);
-    } catch (err) {
+      } catch (err) {
         console.error("Failed to fetch ads:", err);
-    }
-};
+      }
+    };
 
-fetchAds();
-}, []);
-console.log(ads)
+    fetchAds();
+  }, []);
+  console.log(ads);
 
   // Update the ad every 6 seconds
   useEffect(() => {
@@ -34,29 +34,27 @@ console.log(ads)
   // Get the current ad based on the index
   const currentAd = activeAds[currentAdIndex];
 
-  return (
-    currentAd && activeAds.length > 0 ? (
-      <div className="overflow-x-auto space-x-4 pt-10 p-4">
-        <p className="italic text-gray-600">ad</p>
-        <div className="flex justify-center ">
-          <a
-            href={currentAd?.link}
-            key={currentAd?.id}
-            className="flex-shrink-0 w-48" // adjust width per item
-          >
-            <div className="bg-gray-700 rounded-lg overflow-hidden">
-              <img
-                src={currentAd?.media}
-                alt={currentAd?.title}
-                className="w-full h-40 object-cover"
-              />
-            </div>
-          </a>
-        </div>
+  return currentAd && activeAds.length > 0 ? (
+    <div className="overflow-x-auto pt-10">
+      <p className="italic text-gray-600">ad</p>
+      <div className="flex justify-center ">
+        <a
+          href={currentAd?.link}
+          key={currentAd?.id}
+          className="flex-shrink-0" // adjust width per item
+        >
+          <div className="bg-gray-700 w-80 rounded-lg overflow-hidden">
+            <img
+              src={currentAd?.media}
+              alt={currentAd?.title}
+              className="w-full h-40 object-cover"
+            />
+          </div>
+        </a>
       </div>
-    ) : (
-      ""
-    )
+    </div>
+  ) : (
+    ""
   );
 };
 
