@@ -63,7 +63,7 @@ const AdvertDisplay = () => {
       <p className="italic text-gray-600">ad</p>
       <div className="flex justify-center ">
         <a
-        target="_blank"
+          target="_blank"
           href={currentAd?.link}
           key={currentAd?.id}
           className="flex-shrink-0" // adjust width per item
@@ -78,6 +78,7 @@ const AdvertDisplay = () => {
                 controls
                 autoPlay
                 muted
+                playsInline
               />
             ) : (
               <img
