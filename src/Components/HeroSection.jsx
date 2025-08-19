@@ -96,7 +96,6 @@ const HeroSection = () => {
             {/* Movie type badge */}
             <span className="inline-block text-xs uppercase bg-white text-black px-2 py-1 rounded-full font-semibold mb-2 w-fit mx-auto md:mx-0">
               {currentMovie.type} {currentMovie.type === "blog" ? "post" : "movie"}
-              {console.log(currentMovie)}
             </span>
 
             {/* Movie title */}

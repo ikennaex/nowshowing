@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../baseUrl";
+import { useRef } from "react";
 
 const AdvertDisplay = () => {
   const [ads, setAds] = useState([]);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const fetchAds = async () => {
@@ -19,36 +21,71 @@ const AdvertDisplay = () => {
     fetchAds();
   }, []);
   console.log(ads);
-
   // Update the ad every 6 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % ads.length); // Cycle through ads
-    }, 6000); // 6 seconds
-
-    return () => clearInterval(interval); // Cleanup the interval on component unmount
-  }, [ads.length]);
 
   // only display active ads
   const activeAds = ads.filter((ad) => ad.active === true);
   // Get the current ad based on the index
   const currentAd = activeAds[currentAdIndex];
 
+  useEffect(() => {
+    if (!currentAd) return;
+
+    let interval;
+
+    if (currentAd.media.includes("/image/")) {
+      interval = setInterval(() => {
+        setCurrentAdIndex((prevIndex) => (prevIndex + 1) % activeAds.length);
+      }, 6000);
+    }
+
+    if (currentAd.media.includes("/video/")) {
+      const handleEnded = () => {
+        setCurrentAdIndex((prevIndex) => (prevIndex + 1) % activeAds.length);
+      };
+
+      const videoElement = document.getElementById("ad-video");
+      videoElement?.addEventListener("ended", handleEnded);
+
+      return () => {
+        videoElement?.removeEventListener("ended", handleEnded);
+        if (interval) clearInterval(interval);
+      };
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [currentAd, activeAds.length]);
+
   return currentAd && activeAds.length > 0 ? (
     <div className="overflow-x-auto pt-10">
       <p className="italic text-gray-600">ad</p>
       <div className="flex justify-center ">
         <a
+        target="_blank"
           href={currentAd?.link}
           key={currentAd?.id}
           className="flex-shrink-0" // adjust width per item
         >
           <div className="bg-gray-700 w-80 rounded-lg overflow-hidden">
-            <img
-              src={currentAd?.media}
-              alt={currentAd?.title}
-              className="w-full h-40 object-cover"
-            />
+            {currentAd.media.includes("/video/") ? (
+              <video
+                id="ad-video"
+                src={currentAd?.media}
+                alt={currentAd?.title}
+                className="w-full h-40 object-cover"
+                controls
+                autoPlay
+                muted
+              />
+            ) : (
+              <img
+                src={currentAd?.media}
+                alt={currentAd?.title}
+                className="w-full h-40 object-cover"
+              />
+            )}
           </div>
         </a>
       </div>

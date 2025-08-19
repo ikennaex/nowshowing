@@ -21,7 +21,7 @@ const CreateAd = () => {
       }));
     } catch (err) {
       console.error("Error creating ad:", err);
-    } 
+    }
   };
 
   // Handle Image Upload
@@ -50,9 +50,11 @@ const CreateAd = () => {
       setAdDetails({ title: "", link: "", media: null });
       navigate("/admin/viewrunningads");
     } catch (err) {
-      setError("Failed to create ad");
+      console.log(err)
+      setError(err.response.data.message || "Failed to create ad");
+      alert(error)
       console.error(err);
-    }  finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -64,7 +66,29 @@ const CreateAd = () => {
           Create an Ad
         </h1>
 
-        <p className="text-sm text-gray-400 py-4">For best clarity and no pixelation, you should upload ads that are at least <span className="font-semibold text-customBlue">320×160px</span>   (ratio: 2:1).</p>
+        <p className="text-sm text-gray-400 py-4">
+          For best clarity and no pixelation, you should upload ads that are at
+          least
+          <span className="font-semibold text-customBlue">320×160px</span>{" "}
+          (ratio: 2:1).
+        </p>
+        <p className="text-sm text-gray-400 py-4">
+          Note: Supported formats are{" "}
+          <span className="font-semibold text-customBlue">
+            .jpg, .jpeg, .png
+          </span>{" "}
+          for images and
+          <span className="font-semibold text-customBlue">.mp4, .webm</span> for
+          videos
+        </p>
+        <p className="text-sm text-gray-400 py-4">
+          Video file limit:{" "}
+          <span className="font-semibold text-customBlue">10MB</span>
+        </p>
+        <p className="text-sm text-gray-400 py-4">
+          Video length limit:{" "}
+          <span className="font-semibold text-customBlue">30 seconds</span>
+        </p>
 
         <form action="" onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -73,6 +97,7 @@ const CreateAd = () => {
             </label>
             <input
               onChange={handleImageChange}
+              required
               name="media"
               type="file"
               accept="image/*,video/*"

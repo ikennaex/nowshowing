@@ -11,11 +11,7 @@ const ViewRunningAds = () => {
       try {
         const response = await axios.get(`${baseUrl}advert`);
         // Add "active" property to each ad (default: true)
-        const adsWithActive = response.data.map((ad) => ({
-          ...ad,
-          active: true,
-        }));
-        setRunningAds(adsWithActive);
+        setRunningAds(response.data);
       } catch (error) {
         console.error("Error fetching running ads:", error);
       }
@@ -25,6 +21,8 @@ const ViewRunningAds = () => {
   }, []);
 
   const toggleActive = (id) => {
+
+    axios.put(`${baseUrl}advert/${id}`, {})
     setRunningAds((prevAds) =>
       prevAds.map((ad) =>
         ad._id === id ? { ...ad, active: !ad.active } : ad
@@ -47,7 +45,7 @@ const ViewRunningAds = () => {
                 }`}
               >
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-semibold">{ad.title}</h2>
+                  <h2 className="lg:text-lg text-sm font-semibold">{ad.title}</h2>
                   <button
                     onClick={() => toggleActive(ad._id)}
                     className={`px-2 py-1 rounded text-xs ${
@@ -69,11 +67,18 @@ const ViewRunningAds = () => {
                 </p>
 
                 {ad.media && (
+                  ad.media.includes("/video/") ? (
+                    <video
+                      src={ad.media}
+                      controls
+                      className="mt-2 w-full h-40 rounded-md object-cover"
+                    />
+                  ) : (
                   <img
                     src={ad.media}
                     alt={ad.title}
                     className="mt-2 w-full h-72 rounded-md object-contain"
-                  />
+                  />)
                 )}
               </li>
             ))}
