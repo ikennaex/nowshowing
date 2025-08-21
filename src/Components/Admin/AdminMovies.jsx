@@ -65,7 +65,7 @@ const AdminMovies = () => {
         {movies.length > 0 ? 'Manage Movies' : 'No movies found'}
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {movies.map((movie, index) => (
+        {movies.slice().reverse().map((movie, index) => (
           <div
             key={index}
             className="bg-gray-900 p-4 rounded-md shadow-md flex flex-col items-center"

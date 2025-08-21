@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../baseUrl';
 import AdminNav from '../../Components/Admin/AdminNav';
+import { useNavigate } from 'react-router-dom';
 
 const CreateYoutubeMovie = () => {
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [youtubeMovie, setYoutubeMovie] = useState({
     title: '',
     desc: '',
@@ -40,6 +44,7 @@ const CreateYoutubeMovie = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const formData = new FormData();
 
@@ -76,6 +81,8 @@ const CreateYoutubeMovie = () => {
     } catch (err) {
       console.error("Failed to create movie", err);
       alert("Error creating movie");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -231,11 +238,13 @@ const CreateYoutubeMovie = () => {
           )}
         </label>
 
+        
         <button
           type="submit"
+          disabled={loading}
           className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
         >
-          Create Movie
+          {loading ? "Creating Movie..." : "Create Movie"}
         </button>
       </form>
     </div>

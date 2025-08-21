@@ -137,6 +137,7 @@ const CreateAd = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="bg-customBlue hover:bg-blue-800 transition-colors py-2 my-6 px-4 rounded-xl text-white font-semibold"
           >
             {loading ? "Creating Ad..." : "Create Ad"}

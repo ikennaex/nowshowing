@@ -20,8 +20,7 @@ const AdvertDisplay = () => {
 
     fetchAds();
   }, []);
-  console.log(ads);
-  // Update the ad every 6 seconds
+  // Update the ad every 6 seconds 
 
   // only display active ads
   const activeAds = ads.filter((ad) => ad.active === true);

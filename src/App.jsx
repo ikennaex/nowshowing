@@ -30,10 +30,17 @@ import Privacypolicy from './Pages/Privacypolicy'
 import CinemaPage from './Pages/CinemaPage'
 import CreateAd from './Pages/Admin/CreateAd'
 import ViewRunningAds from './Pages/Admin/ViewRunningAds'
+import AdminLoginPage from './Pages/Admin/AdminLoginPage'
+import { AdminContextProvider } from './Context/AdminContext'
+import AdminProtectedRoutes from './ProtectedRoutes/AdminProtectedRoutes'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
     <div>
+      <AdminContextProvider>
       <ScrollToTop/>
       <Navbar/>
       <div className='mt-10'>
@@ -52,7 +59,11 @@ const App = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacypolicy" element={<Privacypolicy />} />
 
+        {/* admin login */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+
         {/* ADMIN ROUTES */}
+        <Route element={<AdminProtectedRoutes />}>
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/createcinemamovie" element={<CreateCinemaMovie />} />
         <Route path="/admin/setshowtime/:id" element={<SetShowtime />} />
@@ -66,9 +77,11 @@ const App = () => {
         <Route path="/admin/blogposts" element={<AdminBlogPage />} />
         <Route path="/admin/createad" element={<CreateAd />} />
         <Route path="/admin/viewrunningads" element={<ViewRunningAds />} />
+        </Route>
       </Routes>
       </div>
       <Footer/>
+      </AdminContextProvider>
     </div>
   )
 }

@@ -35,7 +35,7 @@ const Navbar = () => {
         {/* Right Side Links */}
         <div className="flex items-center space-x-4 hidden md:flex">
           <NavLink to="/login" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Login/Register</NavLink>
-          <NavLink to="/admin" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Admin</NavLink>
+          {/* <NavLink to="/admin" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Admin</NavLink> */}
         </div>
 
         {/* Hamburger (for mobile) */}
@@ -53,7 +53,7 @@ const Navbar = () => {
           <li><NavLink to="/youtube" onClick={handleLinkClick} className="mobile-link">YOUTUBE</NavLink></li>
           <li><NavLink to="/blog" onClick={handleLinkClick} className="mobile-link">BLOG</NavLink></li>
           <li><NavLink to="/login" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li>
-          <li><NavLink to="/admin" onClick={handleLinkClick} className="mobile-link">Admin</NavLink></li>
+          {/* <li><NavLink to="/admin" onClick={handleLinkClick} className="mobile-link">Admin</NavLink></li> */}
         </ul>
       </div>
     </nav>

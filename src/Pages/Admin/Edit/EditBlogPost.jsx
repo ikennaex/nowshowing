@@ -41,6 +41,7 @@ const EditBlogPost = () => {
         });
     };
 
+
     // Handle form submission
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -89,10 +90,10 @@ const EditBlogPost = () => {
           className="w-full p-2 rounded bg-gray-800 text-white"
         />
         <input
-          type="text"
+          type="file"
           name="img"
           placeholder="Image URL"
-          value={post.img}
+          src={post.img}
           onChange={handleChange}
           className="w-full p-2 rounded bg-gray-800 text-white"
         />

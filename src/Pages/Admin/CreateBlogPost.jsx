@@ -6,6 +6,7 @@ import { baseUrl } from "../../baseUrl";
 const CreateBlogPost = () => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [blogDetails, setBlogDetails] = useState({
     title: "",
     author: "",
@@ -42,6 +43,7 @@ const CreateBlogPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axios.post(`${baseUrl}blog`, formData);
       alert("Post created successfully!");
@@ -49,6 +51,8 @@ const CreateBlogPost = () => {
     } catch (err) {
       setError("Failed to create post");
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,9 +101,10 @@ const CreateBlogPost = () => {
         )}
         <button
           type="submit"
+          disabled={loading}
           className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-white"
         >
-          Create Post
+          {loading ? "Creating Post..." : "Create Post"}
         </button>
       </form>
     </div>

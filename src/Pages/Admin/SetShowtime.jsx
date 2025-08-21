@@ -51,7 +51,6 @@ const SetShowtime = () => {
       try {
         const response = await axios.get(`${baseUrl}showtimes/${id}`);
         setExistingShowtimes(response.data);
-        console.log("Existing Showtimes:", response);
       } catch (error) {
         console.error("Error fetching showtimes:", error);
       }
@@ -85,8 +84,6 @@ const SetShowtime = () => {
     e.preventDefault();
     // for showtime format
     const showtime12hrs = formatTo12Hour(showtimes);
-    console.log(showtime12hrs);
-    console.log(selectedLocation);
     try {
       setLoading(true);
       await axios.post(`${baseUrl}showtimes`, {
@@ -98,7 +95,6 @@ const SetShowtime = () => {
       //   setLocation("");
       setShowDate("");
       setShowtimes("");
-      console.log("Showtime set successfully");
     } catch (error) {
       console.error("Error setting showtime:", error);
     } finally {

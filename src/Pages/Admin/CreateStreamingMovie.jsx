@@ -7,6 +7,7 @@ import AdminNav from "../../Components/Admin/AdminNav";
 const CreateStreamingMovie = () => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [streamingMovie, setStreamingMovie] = useState({
     title: "",
     synopsis: "",
@@ -42,6 +43,7 @@ const CreateStreamingMovie = () => {
 
   // Handle submit
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const formData = new FormData();
@@ -78,6 +80,8 @@ const CreateStreamingMovie = () => {
     } catch (err) {
       console.error("Failed to create movie", err);
       alert("Error creating movie");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -239,9 +243,10 @@ const CreateStreamingMovie = () => {
 
         <button
           type="submit"
+          disabled={loading}
           className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
         >
-          Create Movie
+          {loading ? "Creating Movie..." : "Create Movie"}
         </button>
       </form>
     </div>

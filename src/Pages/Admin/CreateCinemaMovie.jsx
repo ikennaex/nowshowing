@@ -84,7 +84,7 @@ const CreateCinemaMovie = () => {
 
       // For debugging
       formData.forEach((value, key) => {
-        console.log(`${key}:`, value);
+        // console.log(`${key}:`, value);
       });
     };
 
@@ -221,6 +221,7 @@ const CreateCinemaMovie = () => {
 
         <button
           type="submit"
+          disabled={loading}
           className="bg-customBlue hover:bg-blue-800 transition-colors py-2 px-4 rounded-xl text-white font-semibold"
         >
           {loading ? 'Creating Cinema Movie...' : 'Create Movie'}
