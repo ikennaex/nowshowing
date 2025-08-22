@@ -52,7 +52,7 @@ const Navbar = () => {
           <li><NavLink to="/cinema" onClick={handleLinkClick} className="mobile-link">CINEMA</NavLink></li>
           <li><NavLink to="/youtube" onClick={handleLinkClick} className="mobile-link">YOUTUBE</NavLink></li>
           <li><NavLink to="/blog" onClick={handleLinkClick} className="mobile-link">BLOG</NavLink></li>
-          <li><NavLink to="/login" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li>
+          {/* <li><NavLink to="/login" onClick={handleLinkClick} className="mobile-link">Login/Register</NavLink></li> */}
           {/* <li><NavLink to="/admin" onClick={handleLinkClick} className="mobile-link">Admin</NavLink></li> */}
         </ul>
       </div>
