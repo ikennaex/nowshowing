@@ -34,7 +34,7 @@ const Navbar = () => {
 
         {/* Right Side Links */}
         <div className="flex items-center space-x-4 hidden md:flex">
-          <NavLink to="/login" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Login/Register</NavLink>
+          {/* <NavLink to="/login" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Login/Register</NavLink> */}
           {/* <NavLink to="/admin" className={({ isActive }) => isActive ? "active-link navlink-a text-sm font-bold" : "navlink-a text-sm font-bold"}>Admin</NavLink> */}
         </div>
 
