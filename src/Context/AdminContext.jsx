@@ -15,7 +15,6 @@ export function AdminContextProvider({ children }) {
     try {
       const response = await axios.get(`${baseUrl}adminlogin/profile`, { withCredentials: true });
           setAdmin(response.data);
-          console.log("Admin profile fetched:", response.data);
       
       // Optional: Ensure the fetched user is actually an admin
     //   if (response.data.role === "admin") {

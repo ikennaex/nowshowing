@@ -1,11 +1,30 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { baseUrl } from "../../baseUrl";
+import axios from "axios";
+import { useState } from "react";
 
-const AdminBlog = ({ posts = [], handleDelete }) => {
+const AdminBlog = ({ posts = [] }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  // Delete function
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
+      await axios.delete(`${baseUrl}blog/${id}`);
+        alert('Post deleted');
+        // fetchPosts(); // Re-fetch to update UI
+      } catch (err) {
+        console.error('Delete failed:', err);
+        alert('Failed to delete post');
+      } finally {
+        setLoading(false);
+      }
+    };
 
   const onDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this post?")) {
+    if (window.confirm("Are you sure you want to delete this post?")) { 
       handleDelete(id);
     }
   };
